@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var storeBtn: UIButton!
     @IBOutlet weak var resetBtn: UIButton!
     
+    private var version = "1.2.2";
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,7 +83,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func aboutEvent(_ sender: UIButton) {
-        let info = UIAlertController(title: "About Me", message: "version: 1.2.1\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)", preferredStyle: .alert)
+        let info = UIAlertController(title: "About Me", message: "version: " + version + "\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)", preferredStyle: .alert)
         info.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         self.present(info, animated: true)
     }
