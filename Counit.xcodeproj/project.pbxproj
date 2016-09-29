@@ -19,7 +19,7 @@
 
 /* Begin PBXFileReference section */
 		532C5E421D9D5B4E0060DB1F /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
-		53A2992B1D9962EF00296D47 /* CountPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CountPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53A2992B1D9962EF00296D47 /* Counit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Counit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53A2992E1D9962EF00296D47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53A299301D9962EF00296D47 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		53A299351D9962EF00296D47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 		53A299221D9962EF00296D47 = {
 			isa = PBXGroup;
 			children = (
-				53A2992D1D9962EF00296D47 /* CountPoint */,
+				53A2992D1D9962EF00296D47 /* Counit */,
 				53A2992C1D9962EF00296D47 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,12 +52,12 @@
 		53A2992C1D9962EF00296D47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				53A2992B1D9962EF00296D47 /* CountPoint.app */,
+				53A2992B1D9962EF00296D47 /* Counit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		53A2992D1D9962EF00296D47 /* CountPoint */ = {
+		53A2992D1D9962EF00296D47 /* Counit */ = {
 			isa = PBXGroup;
 			children = (
 				53A2992E1D9962EF00296D47 /* AppDelegate.swift */,
@@ -70,15 +70,16 @@
 				532C5E421D9D5B4E0060DB1F /* Score.swift */,
 				53B4D9F61D9D6433009203BB /* VersionUpdate.rtf */,
 			);
+			name = Counit;
 			path = CountPoint;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		53A2992A1D9962EF00296D47 /* CountPoint */ = {
+		53A2992A1D9962EF00296D47 /* Counit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 53A2993D1D9962EF00296D47 /* Build configuration list for PBXNativeTarget "CountPoint" */;
+			buildConfigurationList = 53A2993D1D9962EF00296D47 /* Build configuration list for PBXNativeTarget "Counit" */;
 			buildPhases = (
 				53A299271D9962EF00296D47 /* Sources */,
 				53A299281D9962EF00296D47 /* Frameworks */,
@@ -88,9 +89,9 @@
 			);
 			dependencies = (
 			);
-			name = CountPoint;
+			name = Counit;
 			productName = CountPoint;
-			productReference = 53A2992B1D9962EF00296D47 /* CountPoint.app */;
+			productReference = 53A2992B1D9962EF00296D47 /* Counit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +111,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 53A299261D9962EF00296D47 /* Build configuration list for PBXProject "CountPoint" */;
+			buildConfigurationList = 53A299261D9962EF00296D47 /* Build configuration list for PBXProject "Counit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -123,7 +124,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				53A2992A1D9962EF00296D47 /* CountPoint */,
+				53A2992A1D9962EF00296D47 /* Counit */,
 			);
 		};
 /* End PBXProject section */
@@ -276,7 +277,7 @@
 				INFOPLIST_FILE = CountPoint/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Kamontat.CountPoint;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Kamontat.-Counit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -292,7 +293,7 @@
 				INFOPLIST_FILE = CountPoint/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Kamontat.CountPoint;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Kamontat.-Counit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -302,7 +303,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		53A299261D9962EF00296D47 /* Build configuration list for PBXProject "CountPoint" */ = {
+		53A299261D9962EF00296D47 /* Build configuration list for PBXProject "Counit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				53A2993B1D9962EF00296D47 /* Debug */,
@@ -311,7 +312,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		53A2993D1D9962EF00296D47 /* Build configuration list for PBXNativeTarget "CountPoint" */ = {
+		53A2993D1D9962EF00296D47 /* Build configuration list for PBXNativeTarget "Counit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				53A2993E1D9962EF00296D47 /* Debug */,

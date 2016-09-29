@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CountPoint.xcodeproj">
+      location = "self:/Users/kamontat/Desktop/Test/CountPoint/Counit.xcodeproj">
    </FileRef>
 </Workspace>

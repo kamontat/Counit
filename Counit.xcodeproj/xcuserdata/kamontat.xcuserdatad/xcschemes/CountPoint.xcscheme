@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "53A2992A1D9962EF00296D47"
-               BuildableName = "CountPoint.app"
-               BlueprintName = "CountPoint"
-               ReferencedContainer = "container:CountPoint.xcodeproj">
+               BuildableName = "Counit.app"
+               BlueprintName = "Counit"
+               ReferencedContainer = "container:Counit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "53A2992A1D9962EF00296D47"
-            BuildableName = "CountPoint.app"
-            BlueprintName = "CountPoint"
-            ReferencedContainer = "container:CountPoint.xcodeproj">
+            BuildableName = "Counit.app"
+            BlueprintName = "Counit"
+            ReferencedContainer = "container:Counit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "53A2992A1D9962EF00296D47"
-            BuildableName = "CountPoint.app"
-            BlueprintName = "CountPoint"
-            ReferencedContainer = "container:CountPoint.xcodeproj">
+            BuildableName = "Counit.app"
+            BlueprintName = "Counit"
+            ReferencedContainer = "container:Counit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "53A2992A1D9962EF00296D47"
-            BuildableName = "CountPoint.app"
-            BlueprintName = "CountPoint"
-            ReferencedContainer = "container:CountPoint.xcodeproj">
+            BuildableName = "Counit.app"
+            BlueprintName = "Counit"
+            ReferencedContainer = "container:Counit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
