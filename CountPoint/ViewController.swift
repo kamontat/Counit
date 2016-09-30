@@ -50,11 +50,6 @@ class ViewController: UIViewController {
         }
         setColor()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func logView(_ sender: Any) {
         self.performSegue(withIdentifier: "ScoreBoardView", sender: self)

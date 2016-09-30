@@ -14,17 +14,11 @@ class ScoreBoardController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let refreshBtn = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(back(_:)))
+        let refreshBtn = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadData(_:)))
         self.navigationItem.rightBarButtonItem = refreshBtn
     }
     
-    func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-    
-    func back(_ sender: Any) {
-        self.performSegue(withIdentifier: "MainView", sender: self)
+    func reloadData(_ sender: Any) {
+        
     }
 }
