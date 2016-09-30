@@ -14,7 +14,7 @@
 		53A299361D9962EF00296D47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53A299351D9962EF00296D47 /* Assets.xcassets */; };
 		53A299391D9962EF00296D47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53A299371D9962EF00296D47 /* LaunchScreen.storyboard */; };
 		53A739431D9A9ECB001BA6B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53A739411D9A9ECB001BA6B5 /* Main.storyboard */; };
-		53A739471D9BADE6001BA6B5 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A739461D9BADE6001BA6B5 /* ViewController2.swift */; };
+		53A739471D9BADE6001BA6B5 /* ScoreBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A739461D9BADE6001BA6B5 /* ScoreBoardController.swift */; };
 		53B4D9F71D9D6433009203BB /* VersionUpdate.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 53B4D9F61D9D6433009203BB /* VersionUpdate.rtf */; };
 		53B4D9FB1D9D978F009203BB /* clock.gif in Resources */ = {isa = PBXBuildFile; fileRef = 53B4D9FA1D9D978F009203BB /* clock.gif */; };
 /* End PBXBuildFile section */
@@ -29,7 +29,7 @@
 		53A299381D9962EF00296D47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53A2993A1D9962EF00296D47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53A739421D9A9ECB001BA6B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		53A739461D9BADE6001BA6B5 /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		53A739461D9BADE6001BA6B5 /* ScoreBoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreBoardController.swift; sourceTree = "<group>"; };
 		53B4D9F61D9D6433009203BB /* VersionUpdate.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = VersionUpdate.rtf; sourceTree = "<group>"; };
 		53B4D9FA1D9D978F009203BB /* clock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = clock.gif; path = ../../clock/clock.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,7 +67,7 @@
 			children = (
 				53A2992E1D9962EF00296D47 /* AppDelegate.swift */,
 				53A299301D9962EF00296D47 /* ViewController.swift */,
-				53A739461D9BADE6001BA6B5 /* ViewController2.swift */,
+				53A739461D9BADE6001BA6B5 /* ScoreBoardController.swift */,
 				53A739411D9A9ECB001BA6B5 /* Main.storyboard */,
 				53A299351D9962EF00296D47 /* Assets.xcassets */,
 				53A299371D9962EF00296D47 /* LaunchScreen.storyboard */,
@@ -167,7 +167,7 @@
 				53A299311D9962EF00296D47 /* ViewController.swift in Sources */,
 				53A2992F1D9962EF00296D47 /* AppDelegate.swift in Sources */,
 				532C5E431D9D5B4E0060DB1F /* Score.swift in Sources */,
-				53A739471D9BADE6001BA6B5 /* ViewController2.swift in Sources */,
+				53A739471D9BADE6001BA6B5 /* ScoreBoardController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,10 +25,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var storeBtn: UIButton!
     @IBOutlet weak var resetBtn: UIButton!
     
-    private var version = self.getVersion();
+    private var version = "";
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(logView(_:)))
+        
+        // Create the info button
+        let infoButton = UIButton(type: .infoLight)
+        // You will need to configure the target action for the button itself
+        infoButton.addTarget(self, action: #selector(aboutPopUp(_:)), for: .touchUpInside)
+        
+        // Create a bar button item using the info button as its custom view
+        let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
+        
+        navigationItem.rightBarButtonItem = infoBarButtonItem
+        
+        
+        version = getVersion()
         
         if isPlayer() {
             loadName()
@@ -39,6 +54,16 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func logView(_ sender: Any) {
+        self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
+    }
+    
+    func aboutPopUp(_ sender: Any) {
+        let info = UIAlertController(title: "About Me", message: "version: " + version + "\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)", preferredStyle: .alert)
+        info.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+        self.present(info, animated: true)
     }
     
     @IBAction func addDelete1(_ sender: UIStepper) {
@@ -53,11 +78,11 @@ class ViewController: UIViewController {
     
     @IBAction func submitEvent(_ sender: UIButton) {
         if (getName1() == "") {
-            nameLb1.text = "unknown1";
+            nameLb1.text = "player1";
         }
         
         if (getName2() == "") {
-            nameLb2.text = "unknown2";
+            nameLb2.text = "player2";
         }
         
         loadScore()
@@ -82,11 +107,6 @@ class ViewController: UIViewController {
         reset(clear: 0)
     }
     
-    @IBAction func aboutEvent(_ sender: UIButton) {
-        let info = UIAlertController(title: "About Me", message: "version: " + version + "\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)", preferredStyle: .alert)
-        info.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-        self.present(info, animated: true)
-    }
     @IBAction func calMinScore(_ sender: UIButton) {
         var score1 = getScore1()
         var score2 = getScore2()
