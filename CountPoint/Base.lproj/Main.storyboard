@@ -28,7 +28,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <stepper hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="O45-yQ-jU7">
-                                <frame key="frameInset" minX="55" minY="58.46%" width="94" height="29"/>
+                                <frame key="frameInset" minX="55" minY="58.39%" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="addDelete1:" destination="BYZ-38-t0r" eventType="valueChanged" id="0kH-jp-y4U"/>
@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <stepper hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="oF4-Zr-58t">
-                                <frame key="frameInset" minY="58.46%" width="94" height="29" maxX="56"/>
+                                <frame key="frameInset" minY="58.39%" width="94" height="29" maxX="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="addDelete2:" destination="BYZ-38-t0r" eventType="valueChanged" id="R5C-i5-h5X"/>
@@ -105,16 +105,6 @@
                                     <action selector="renameEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="com-Ka-BAl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqb-M9-2Ly">
-                                <frame key="frameInset" minX="164" minY="619" width="46" height="35"/>
-                                <state key="normal" title="Log"/>
-                                <connections>
-                                    <segue destination="jwz-q9-QzY" kind="presentation" id="UWR-gr-0r2">
-                                        <segue key="commit" inheritsFrom="parent" id="LQK-bX-0MT"/>
-                                        <segue key="preview" inheritsFrom="commit" id="ki3-qM-Xgh"/>
-                                    </segue>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNu-rr-90o">
                                 <frame key="frameInset" minX="25" width="22" height="22" maxY="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -130,14 +120,23 @@
                                     <action selector="calMinScore:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2An-jd-k2A"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqb-M9-2Ly">
+                                <frame key="frameInset" minX="164" minY="619" width="46" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log"/>
+                                <connections>
+                                    <segue destination="jwz-q9-QzY" kind="presentation" id="UWR-gr-0r2">
+                                        <segue key="commit" inheritsFrom="parent" id="LQK-bX-0MT"/>
+                                        <segue key="preview" inheritsFrom="commit" id="ki3-qM-Xgh"/>
+                                    </segue>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="o2f-Ex-N2Y" firstAttribute="leading" secondItem="Qqb-M9-2Ly" secondAttribute="trailing" constant="72" id="5W0-EA-qTv"/>
                             <constraint firstAttribute="bottom" secondItem="gTz-Rc-4rt" secondAttribute="bottom" constant="74" id="B2J-Ab-ipv"/>
                             <constraint firstItem="o2f-Ex-N2Y" firstAttribute="top" secondItem="gTz-Rc-4rt" secondAttribute="bottom" constant="24" id="LeT-Ty-9Oy"/>
                             <constraint firstItem="o2f-Ex-N2Y" firstAttribute="centerX" secondItem="gTz-Rc-4rt" secondAttribute="centerX" id="WJd-cX-4Ef"/>
-                            <constraint firstItem="o2f-Ex-N2Y" firstAttribute="top" secondItem="Qqb-M9-2Ly" secondAttribute="top" id="emy-0I-VEf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gTz-Rc-4rt" secondAttribute="trailing" constant="5" id="rdg-1Y-kVO"/>
                         </constraints>
                     </view>
@@ -180,7 +179,7 @@
                                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="done" id="vQi-m9-1K9">
                                             <connections>
                                                 <action selector="onClick:" destination="jwz-q9-QzY" id="jxm-OF-1oC"/>
-                                                <segue destination="BYZ-38-t0r" kind="modal" identifier="" id="3FE-vT-Y4S"/>
+                                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="" id="3FE-vT-Y4S"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="H4R-69-TRt"/>

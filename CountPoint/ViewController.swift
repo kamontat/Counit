@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var storeBtn: UIButton!
     @IBOutlet weak var resetBtn: UIButton!
     
-    private var version = "1.2.2";
+    private var version = self.getVersion();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,6 +170,14 @@ class ViewController: UIViewController {
         return Int(scoreLb2.text!)!;
     }
     
+    func getVersion() -> String {
+        return Bundle.main.releaseVersionNumber!;
+    }
+    
+    func getBuild() -> String {
+        return Bundle.main.buildVersionNumber!;
+    }
+    
     func store() {
         let user = UserDefaults.standard;
         
@@ -276,5 +284,15 @@ class ViewController: UIViewController {
         
         storeBtn.isHidden = true
         resetBtn.isHidden = true
+    }
+}
+
+
+extension Bundle {
+    var releaseVersionNumber: String? {
+        return infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    var buildVersionNumber: String? {
+        return infoDictionary?["CFBundleVersion"] as? String
     }
 }
