@@ -52,6 +52,8 @@ class ViewController: UIViewController {
             setPlayer()
         }
         
+        server.log()
+        byState(state: 1)
         setColor()
     }
     
@@ -123,12 +125,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func storeData(_ sender: UIButton) {
-        server.store(p1: p1, p2: p2)
-        let alert = UIAlertController(title: "Saved", message: "first name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond name: \(nameLb2.text!) -> \(scoreLb2.text!)", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-        self.present(alert, animated: true)
-        resetBtn.isHidden = false
-        
+        if p1.isGuest() && p2.isGuest() {
+            let alert = UIAlertController(title: "Cannot Save", message: "all guest member won't save data!!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK, I know it", style: .cancel))
+            self.present(alert, animated: true)
+        } else {
+            server.store(p1: p1, p2: p2)
+            let alert = UIAlertController(title: "Saved", message: "first name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond name: \(nameLb2.text!) -> \(scoreLb2.text!)", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            self.present(alert, animated: true)
+            resetBtn.isHidden = false
+        }
         server.log()
     }
     
@@ -139,6 +146,7 @@ class ViewController: UIViewController {
             self.reset(clear: 2)
         }))
         confirm.addAction(UIAlertAction(title: "Only current data!!", style: .default, handler: {(action: UIAlertAction!) in
+            self.server.store(p1: self.p1, p2: self.p2)
             self.reset(clear: 1)
         }))
         self.present(confirm, animated: true)
@@ -224,24 +232,30 @@ class ViewController: UIViewController {
         default:
             setColor()
         }
-        if server.haveCurrentPlayer() {
+        if server.getPlayers() != nil {
             resetBtn.isHidden = false
+        } else {
+            resetBtn.isHidden = true
         }
         setColor()
     }
     
     func reset(clear: Int) {
+        server.log()
         if clear == 1 {
            server.clear()
         } else if clear == 2 {
+            print("start")
             server.clearAll()
         }
+        print("clear")
         
         p1 = Player()
         p2 = Player()
         
         setPlayer()
         byState(state: 1)
+        server.log()
     }
 }
 

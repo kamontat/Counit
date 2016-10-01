@@ -21,19 +21,23 @@ class Server {
     }
     
     func store(p1: Player, p2: Player) {
-        p1.updateScore()
-        p2.updateScore()
-        
-        user.set(p1.toData(), forKey: "first")
-        user.set(p2.toData(), forKey: "second")
-        
         var all: Players = Players()
         if (user.object(forKey: "allPlayers") != nil) {
             all = getPlayers()!
-            
         }
-        all.addPlayer(player: p1)
-        all.addPlayer(player: p2)
+        
+        if !p1.isGuest() {
+            p1.updateScore()
+            user.set(p1.toData(), forKey: "first")
+            all.addPlayer(player: p1)
+        }
+        
+        if !p2.isGuest() {
+            p2.updateScore()
+            user.set(p2.toData(), forKey: "second")
+            all.addPlayer(player: p2)
+        }
+        
         user.set(all.ToData(), forKey: "allPlayers")
     }
     
@@ -86,21 +90,40 @@ class Server {
     
     func clearAll() {
         clear()
-        user.removeObject(forKey: "allPlayers")
+        user.set(Players().ToData(), forKey: "allPlayers")
     }
     
     func getPlayers() -> Players? {
+        if user.object(forKey: "allPlayers") == nil {
+            return nil
+        }
+        
         let all = user.object(forKey: "allPlayers") as! [[Data]]
         return Players.toPlayers(datas: all)
     }
     
     func log() {
         print("Server Log !!!!")
-        print("FIRST PLAYER:")
-        print(loadFirstPlayer()!.toString())
-        print("SECOND PLAYER:")
-        print(loadSecondPlayer()!.toString())
+        if loadFirstPlayer() != nil {
+            print("FIRST PLAYER:")
+            print(loadFirstPlayer()!.toString())
+        } else {
+            print("No First player")
+        }
+        
+        if loadSecondPlayer() != nil {
+            print("SECOND PLAYER:")
+            print(loadSecondPlayer()!.toString())
+        } else {
+            print("No Second player")
+        }
         print("ALL PLAYER:")
-        print(getPlayers()!.toString())
+    
+        
+        if getPlayers() != nil {
+            print(getPlayers()!.toString())
+        } else {
+            print("No Way")
+        }
     }
 }

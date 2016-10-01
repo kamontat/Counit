@@ -11,46 +11,33 @@ import Foundation
 class Player {
     var name: String = ""
     var score: Int = 0
-    var historyScores = [Int]()
+    var historyScores: [Int]
     
     init() {
-        historyScores.append(score)
+        self.historyScores = [0]
     }
     
     init(name: String) {
         self.name = name
-        historyScores.append(score)
+        self.historyScores = [0]
     }
     
     init(name: String, score: Int) {
         self.name = name
-        self.score = score
-        historyScores.append(score)
+        self.historyScores = [0]
+        if !isGuest() {
+            self.score = score
+            historyScores.append(score)
+        }
     }
     
     init(name: String, score: Int, history: [Int]) {
         self.name = name
-        self.score = score
-        historyScores = history
-    }
-    
-    init(coder aDecoder: NSCoder) {
-        self.name = aDecoder.decodeObject(forKey: "name") as! String
-        self.score = aDecoder.decodeObject(forKey: "score") as! Int
-        self.historyScores = aDecoder.decodeObject(forKey: "history") as! [Int]
-    }
-    
-    func initWithCoder(aDecoder: NSCoder) -> Player {
-        self.name = aDecoder.decodeObject(forKey: "name") as! String
-        self.score = aDecoder.decodeObject(forKey: "score") as! Int
-        self.historyScores = aDecoder.decodeObject(forKey: "history") as! [Int]
-        return self
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(score, forKey: "score")
-        aCoder.encode(historyScores, forKey: "history")
+        self.historyScores = [0]
+        if !isGuest() {
+            self.score = score
+            historyScores = history
+        }
     }
     
     func changeScore(score: Int) {
@@ -58,10 +45,16 @@ class Player {
     }
     
     func updateScore() {
-        if historyScores.last! != score {
-            historyScores.append(score)
+        if !isGuest() {
+            if historyScores.last! != score {
+                historyScores.append(score)
+            }
+            clearOldScore()
         }
-        clearOldScore()
+    }
+    
+    func isGuest() -> Bool {
+        return (name == "player1") || (name == "player2");
     }
     
     private func clearOldScore() {
