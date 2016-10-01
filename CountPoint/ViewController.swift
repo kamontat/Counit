@@ -25,29 +25,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var storeBtn: UIButton!
     @IBOutlet weak var resetBtn: UIButton!
     
-    private var version = "";
+    private var version = ""
+    private var server: Server = Server.getServer()
+    
+    private var p1: Player = Player()
+    private var p2: Player = Player()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(logView(_:)))
         
         // Create the info button
         let infoButton = UIButton(type: .infoLight)
         // You will need to configure the target action for the button itself
         infoButton.addTarget(self, action: #selector(aboutPopUp(_:)), for: .touchUpInside)
-        
         // Create a bar button item using the info button as its custom view
         let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
         
         navigationItem.rightBarButtonItem = infoBarButtonItem
-        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(logView(_:)))
         
         version = getVersion()
         
-        if isPlayer() {
-            loadName()
+        if server.haveCurrentPlayer() {
+            p1 = server.loadFirstPlayer()!
+            p2 = server.loadSecondPlayer()!
+            setPlayer()
         }
+        
         setColor()
     }
     
@@ -63,65 +67,69 @@ class ViewController: UIViewController {
     
     @IBAction func addDelete1(_ sender: UIStepper) {
         scoreLb1.text = String(Int(sender.value));
+        p1.changeScore(score: Int(sender.value))
         setColor()
     }
     
     @IBAction func addDelete2(_ sender: UIStepper) {
         scoreLb2.text = String(Int(sender.value));
+        p2.changeScore(score: Int(sender.value))
         setColor()
     }
     
     @IBAction func submitEvent(_ sender: UIButton) {
-        if (getName1() == "") {
+        if (nameLb1.text == "") {
             nameLb1.text = "player1";
         }
         
-        if (getName2() == "") {
+        if (nameLb2.text == "") {
             nameLb2.text = "player2";
         }
         
-        loadScore()
+        if server.load(name: nameLb1.text!) == nil {
+            p1 = Player(name: nameLb1.text!)
+        } else {
+            p1 = server.load(name: nameLb1.text!)!
+        }
         
-        nameLb1.isUserInteractionEnabled = false
-        scoreLb1.isHidden = false
-        stepper1.isHidden = false
-        nameLb2.isUserInteractionEnabled = false
-        scoreLb2.isHidden = false
-        stepper2.isHidden = false
+        if server.load(name: nameLb2.text!) == nil {
+            p2 = Player(name: nameLb2.text!)
+        } else {
+            p2 = server.load(name: nameLb2.text!)!
+        }
         
-        minBtn.isHidden = false
-        storeBtn.isHidden = false
-        resetBtn.isHidden = false
+        print("current p1: \(p1.toString())")
+        print("current p2: \(p2.toString())")
         
-        submitBtn.isHidden = true
-        renameBtn.isHidden = false
+        setPlayer()
+        byState(state: 2)
     }
     
     @IBAction func renameEvent(_ sender: UIButton) {
-        store()
+        server.store(p1: p1, p2: p2)
         reset(clear: 0)
+        byState(state: 1)
     }
     
     @IBAction func calMinScore(_ sender: UIButton) {
-        var score1 = getScore1()
-        var score2 = getScore2()
-        
-        if score1 > score2 {
-            score1 -= score2
-            score2 = 0
+        if p1.score > p2.score {
+            p1.score -= p2.score
+            p2.score = 0
         }else {
-            score2 -= score1
-            score1 = 0
+            p2.score -= p1.score
+            p1.score = 0
         }
-        setscore1(first: score1)
-        setscore2(second: score2)
+        setPlayer()
     }
     
     @IBAction func storeData(_ sender: UIButton) {
-        store()
+        server.store(p1: p1, p2: p2)
         let alert = UIAlertController(title: "Saved", message: "first name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond name: \(nameLb2.text!) -> \(scoreLb2.text!)", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         self.present(alert, animated: true)
+        resetBtn.isHidden = false
+        
+        server.log()
     }
     
     @IBAction func resetData(_ sender: UIButton) {
@@ -150,39 +158,15 @@ class ViewController: UIViewController {
         }
     }
     
-    // first player
-    func setName1(name: String) {
-        nameLb1.text = name.lowercased()
-    }
-    
-    func getName1() -> String {
-        return nameLb1.text!.lowercased();
-    }
-    
-    func setscore1(first:Int) {
-        stepper1.value = Double(first)
-        scoreLb1.text = String(describing: first);
-    }
-    
-    func getScore1() -> Int {
-        return Int(scoreLb1.text!)!;
-    }
-    
-    // second player
-    func setName2(name: String) {
-        nameLb2.text = name.lowercased()
-    }
-    func getName2() -> String {
-        return nameLb2.text!.lowercased();
-    }
-    
-    func setscore2(second:Int) {
-        stepper2.value = Double(second)
-        scoreLb2.text = String(describing: second);
-    }
-    
-    func getScore2() -> Int {
-        return Int(scoreLb2.text!)!;
+    // player
+    func setPlayer() {
+        nameLb1.text = p1.name.lowercased()
+        scoreLb1.text = String(p1.score)
+        stepper1.value = Double(p1.score)
+        
+        nameLb2.text = p2.name.lowercased()
+        scoreLb2.text = String(p2.score)
+        stepper2.value = Double(p2.score)
     }
     
     func getVersion() -> String {
@@ -192,113 +176,72 @@ class ViewController: UIViewController {
     func getBuild() -> String {
         return Bundle.main.buildVersionNumber!;
     }
-    
-    func store() {
-        let user = UserDefaults.standard;
-        
-        var people = user.array(forKey: "people")
-        if (people == nil) {
-            people = [getName1(), getName2()]
-        } else {
-            if user.value(forKey: getName1()) == nil {
-                people?.append(getName1())
-            } else if user.value(forKey: getName1()) == nil {
-                people?.append(getName2())
-            }
-        }
-        user.set(people, forKey: "people")
-        user.set(getName1(), forKey: "first")
-        user.set(getScore1(), forKey: getName1())
-        user.set(getName2(), forKey: "second")
-        user.set(getScore2(), forKey: getName2())
-    }
-    
-    func loadName() {
-        let user = UserDefaults.standard;
-        
-        setName1(name: user.value(forKey: "first") as! String)
+    /**
+        this method will change ui by state 
+     
+        1 - use to **start app** or **reset** or **rename**
+        2 - use to **click submit**
+     */
+    func byState(state: Int) {
+        switch state {
+            // start "app" or "reset" or "rename"
+        case 1:
             
-        setName2(name: user.value(forKey: "second") as! String)
-    }
-    
-    func loadScore() {
-        let user = UserDefaults.standard;
-
-        
-        if (user.value(forKey: getName1()) != nil) {
-            setscore1(first: user.value(forKey: getName1()) as! Int)
-        } else {
-            setscore1(first: 0)
+            nameLb1.text = p1.name
+            nameLb1.isUserInteractionEnabled = true
+            scoreLb1.isHidden = true
+            nameLb2.text = p2.name
+            nameLb2.isUserInteractionEnabled = true
+            scoreLb2.isHidden = true
+            
+            stepper1.isHidden = true
+            stepper2.isHidden = true
+            
+            if nameLb1.text != "" || nameLb2.text != "" {
+                  renameBtn.isHidden = false
+            } else {
+                renameBtn.isHidden = true
+            }
+            submitBtn.isHidden = false
+            minBtn.isHidden = true
+            
+            storeBtn.isHidden = true
+            
+            // already click submit
+        case 2:
+            nameLb1.isUserInteractionEnabled = false
+            scoreLb1.isHidden = false
+            stepper1.isHidden = false
+            nameLb2.isUserInteractionEnabled = false
+            scoreLb2.isHidden = false
+            stepper2.isHidden = false
+            
+            renameBtn.isHidden = false
+            submitBtn.isHidden = true
+            minBtn.isHidden = false
+            
+            storeBtn.isHidden = false
+        default:
+            setColor()
         }
-        
-        if (user.value(forKey: getName2()) != nil) {
-            setscore2(second: user.value(forKey: getName2()) as! Int)
-        } else {
-            setscore2(second: 0)
+        if server.haveCurrentPlayer() {
+            resetBtn.isHidden = false
         }
-        
-        resetBtn.isHidden = false
         setColor()
-    }
-    
-    func isPlayer() -> Bool{
-        let user = UserDefaults.standard;
-        return user.value(forKey: "first") != nil && user.value(forKey: "second") != nil
-    }
-    
-    func clear() {
-        let user = UserDefaults.standard;
-        
-        let name1 = user.value(forKey: "first");
-        let name2 = user.value(forKey: "second");
-        
-        user.removeObject(forKey: name1 as! String)
-        user.removeObject(forKey: name2 as! String)
-        user.removeObject(forKey: "first")
-        user.removeObject(forKey: "second")
-    }
-    
-    func clearAll() {
-        let user = UserDefaults.standard;
-        
-        let people = user.array(forKey: "people")
-        
-        for person in people! {
-            user.removeObject(forKey: person as! String)
-        }
-        
-        user.set([], forKey: "people")
-        
-        user.removeObject(forKey: "first")
-        user.removeObject(forKey: "second")
     }
     
     func reset(clear: Int) {
         if clear == 1 {
-           self.clear()
+           server.clear()
         } else if clear == 2 {
-            self.clearAll()
+            server.clearAll()
         }
         
-        setscore1(first: 0)
-        setscore2(second: 0)
-        setColor()
+        p1 = Player()
+        p2 = Player()
         
-        nameLb1.text = ""
-        nameLb1.isUserInteractionEnabled = true
-        scoreLb1.isHidden = true
-        nameLb2.text = ""
-        nameLb2.isUserInteractionEnabled = true
-        scoreLb2.isHidden = true
-        
-        stepper1.isHidden = true
-        stepper2.isHidden = true
-        minBtn.isHidden = true
-        
-        submitBtn.isHidden = false
-        
-        storeBtn.isHidden = true
-        resetBtn.isHidden = true
+        setPlayer()
+        byState(state: 1)
     }
 }
 
