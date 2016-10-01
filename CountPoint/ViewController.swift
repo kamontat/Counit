@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        version = getVersion()
         
         // Create the info button
         let infoButton = UIButton(type: .infoLight)
@@ -43,8 +44,6 @@ class ViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = infoBarButtonItem
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(logView(_:)))
-        
-        version = getVersion()
         
         if server.haveCurrentPlayer() {
             p1 = server.loadFirstPlayer()!
@@ -81,11 +80,11 @@ class ViewController: UIViewController {
     
     @IBAction func submitEvent(_ sender: UIButton) {
         server.log()
-        if (nameLb1.text == "") {
+        
+        if nameLb1.text == "" {
             nameLb1.text = "player1";
         }
-        
-        if (nameLb2.text == "") {
+        if nameLb2.text == "" {
             nameLb2.text = "player2";
         }
         

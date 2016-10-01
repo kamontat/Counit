@@ -38,12 +38,11 @@ class Server {
             all.addPlayer(player: p2)
         }
         
-        user.set(all.ToData(), forKey: "allPlayers")
+        user.set(all.toData(), forKey: "allPlayers")
     }
     
     func load(name: String) -> Player? {
         let all = getPlayers()!
-        
         if !all.isHere(name: name) {
             return nil
         }
@@ -71,7 +70,7 @@ class Server {
     private func remove(name: String) {
         let all = getPlayers()!;
         all.removePlayer(name: name)
-        user.set(all.ToData(), forKey: "allPlayers")
+        user.set(all.toData(), forKey: "allPlayers")
     }
     
     func clear() {
@@ -86,12 +85,12 @@ class Server {
     
     func clearAll() {
         clear()
-        user.set(Players().ToData(), forKey: "allPlayers")
+        user.set(Players().toData(), forKey: "allPlayers")
     }
     
     func getPlayers() -> Players? {
         if user.object(forKey: "allPlayers") == nil {
-            return nil
+            user.set(Players().toData(), forKey: "allPlayers")
         }
         
         let all = user.object(forKey: "allPlayers") as! [[Data]]

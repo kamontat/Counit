@@ -102,14 +102,13 @@ class Players{
         return text
     }
     
-    func ToData() -> [[Data]] {
+    func toData() -> [[Data]] {
         var data: [[Data]] = [];
         for player in allPlayer {
             data.append(player.toData())
         }
         return data
     }
-    
     
     class func toPlayers(datas: [[Data]]) -> Players {
         var all: [Player] = [Player]()

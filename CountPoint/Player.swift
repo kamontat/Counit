@@ -58,7 +58,7 @@ class Player {
     }
     
     private func clearOldScore() {
-        if historyScores.count > 30 {
+        if historyScores.count > 60 {
             historyScores.remove(at: 0)
         }
     }
@@ -69,9 +69,9 @@ class Player {
         for history in historyScores {
             i += 1;
             if i == historyScores.count {
-                text = text.appending("last)  \(history)\n")
+                text = text.appending("%\(history)%")
             } else {
-                text = text.appending("\(i))  \(history)\n")
+                text = text.appending("*\(history)*     ")
             }
         }
         return text
