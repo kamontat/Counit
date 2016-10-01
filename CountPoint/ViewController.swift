@@ -80,6 +80,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func submitEvent(_ sender: UIButton) {
+        server.log()
         if (nameLb1.text == "") {
             nameLb1.text = "player1";
         }
@@ -184,6 +185,7 @@ class ViewController: UIViewController {
     func getBuild() -> String {
         return Bundle.main.buildVersionNumber!;
     }
+    
     /**
         this method will change ui by state 
      

@@ -42,10 +42,6 @@ class Server {
     }
     
     func load(name: String) -> Player? {
-        if !haveCurrentPlayer() {
-            return nil
-        }
-        
         let all = getPlayers()!
         
         if !all.isHere(name: name) {
