@@ -25,16 +25,16 @@ class Server {
         if (user.object(forKey: "allPlayers") != nil) {
             all = getPlayers()!
         }
+        user.set(p1.toData(), forKey: "first")
+        user.set(p2.toData(), forKey: "second")
         
         if !p1.isGuest() {
             p1.updateScore()
-            user.set(p1.toData(), forKey: "first")
             all.addPlayer(player: p1)
         }
         
         if !p2.isGuest() {
             p2.updateScore()
-            user.set(p2.toData(), forKey: "second")
             all.addPlayer(player: p2)
         }
         
@@ -118,8 +118,6 @@ class Server {
             print("No Second player")
         }
         print("ALL PLAYER:")
-    
-        
         if getPlayers() != nil {
             print(getPlayers()!.toString())
         } else {

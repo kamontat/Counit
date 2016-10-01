@@ -125,12 +125,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func storeData(_ sender: UIButton) {
+        server.store(p1: p1, p2: p2)
         if p1.isGuest() && p2.isGuest() {
             let alert = UIAlertController(title: "Cannot Save", message: "all guest member won't save data!!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK, I know it", style: .cancel))
             self.present(alert, animated: true)
         } else {
-            server.store(p1: p1, p2: p2)
             let alert = UIAlertController(title: "Saved", message: "first name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond name: \(nameLb2.text!) -> \(scoreLb2.text!)", preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
             self.present(alert, animated: true)
@@ -241,14 +241,11 @@ class ViewController: UIViewController {
     }
     
     func reset(clear: Int) {
-        server.log()
         if clear == 1 {
            server.clear()
         } else if clear == 2 {
-            print("start")
             server.clearAll()
         }
-        print("clear")
         
         p1 = Player()
         p2 = Player()
