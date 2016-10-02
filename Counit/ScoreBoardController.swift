@@ -20,6 +20,20 @@ class ScoreBoardController: UITableViewController {
         players = server.getPlayers()
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.clearsSelectionOnViewWillAppear = false
+        self.navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            let player = players?.allPlayer[indexPath.row]
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailController
+            controller.getPlayer(player: player!)
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+        }
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

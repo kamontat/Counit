@@ -43,7 +43,6 @@ class ViewController: UIViewController {
         let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
         navigationItem.rightBarButtonItem = infoBarButtonItem
         
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(logView(_:)))
         setScoreboardViewByPlayersExist()
 
