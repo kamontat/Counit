@@ -70,6 +70,14 @@ class Player {
         return (name == "player1") || (name == "player2");
     }
     
+    
+    /// get history number
+    ///
+    /// - returns: how many history in this player 
+    func countHistory() -> Int {
+        return historyScores.count
+    }
+    
     /// clear old history if this more than 60
     private func clearOldScore() {
         if historyScores.count > 60 {

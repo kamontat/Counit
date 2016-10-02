@@ -14,6 +14,10 @@ class ScoreBoardController: UITableViewController {
     
     @IBOutlet var table: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "ScoreBoard (\(players!.countPlayer()))"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,19 +25,16 @@ class ScoreBoardController: UITableViewController {
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = true
         self.navigationController?.hidesBarsOnSwipe = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
             let player = players?.allPlayer[indexPath.row]
-            let controller = (segue.destination as! UINavigationController).topViewController as! DetailController
+            let controller = segue.destination as! DetailController
             controller.getPlayer(player: player!)
-            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-            controller.navigationItem.leftItemsSupplementBackButton = true
         }
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

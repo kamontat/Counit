@@ -10,23 +10,15 @@ import UIKit
 
 class DetailController: UITableViewController {
     private var player: Player?
-    
-    @IBOutlet weak var navItem: UINavigationItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navItem.title = player?.name
+        navigationItem.title = "\(player!.name) : \(player!.countHistory()))"
         self.clearsSelectionOnViewWillAppear = true
-        
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(back(_:)))
     }
     
     func getPlayer(player: Player) {
         self.player = player
-    }
-    
-    func back(_ sender: Any) {
-        
     }
 
     // MARK: - Table view data source
@@ -35,7 +27,7 @@ class DetailController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        // #warning Incomplete implementation, return the number of rowss
         return (player?.historyScores.count)!
     }
 
