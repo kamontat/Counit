@@ -45,7 +45,7 @@ class Server {
     func store(p1: Player, p2: Player) {
         var all: Players = Players.getPlayers()
         if (user.object(forKey: "allPlayers") != nil) {
-            all = getPlayers()!
+            all = getPlayers()
         }
         user.set(p1.toData(), forKey: "first")
         user.set(p2.toData(), forKey: "second")
@@ -69,7 +69,7 @@ class Server {
     ///
     /// - returns: player if name exist, otherwise return `nil`
     func load(name: String) -> Player? {
-        let all = getPlayers()!
+        let all = getPlayers()
         if !all.isHere(name: name) {
             return nil
         }
@@ -107,7 +107,7 @@ class Server {
     ///
     /// - parameter name: `name` of player that want to move
     private func remove(name: String) {
-        let all = getPlayers()!;
+        let all = getPlayers();
         all.removePlayer(name: name)
         user.set(all.toData(), forKey: "allPlayers")
     }
@@ -131,15 +131,16 @@ class Server {
     
     /// get data from the storage and convert it to `players`
     ///
-    /// - returns: `players` if it possible to get, otherwise return `nil`
-    /// - seealso:
-    func getPlayers() -> Players? {
+    /// and players cannot be `nil`, if want to check nil see in method `isEmpty` in Players class
+    ///
+    /// - returns: `players`
+    func getPlayers() -> Players {
         if user.object(forKey: "allPlayers") == nil {
             user.set(Players.getPlayers().toData(), forKey: "allPlayers")
         }
         
-        let all = user.object(forKey: "allPlayers") as! [[Data]]
-        return Players.toPlayers(datas: all)
+        let data = user.object(forKey: "allPlayers") as! [[Data]]
+        return Players.toPlayers(datas: data)
     }
     
     /// print all infrmation in server
@@ -159,8 +160,8 @@ class Server {
             print("No Second player")
         }
         print("ALL PLAYER:")
-        if getPlayers() != nil {
-            print(getPlayers()!.toString())
+        if !getPlayers().isEmply() {
+            print(getPlayers().toString())
         } else {
             print("No Way")
         }

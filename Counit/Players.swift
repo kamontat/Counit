@@ -91,6 +91,14 @@ class Players{
         return true
     }
     
+    
+    /// this class cannot be nil, so if this class should be nil this method will return true
+    ///
+    /// - returns: true if it's should be nil, otherwise return false
+    func isEmply() -> Bool {
+        return allPlayer.isEmpty
+    }
+    
     /// get all score history by `player`
     ///
     /// - parameter player: player

@@ -41,9 +41,11 @@ class ViewController: UIViewController {
         infoButton.addTarget(self, action: #selector(aboutPopUp(_:)), for: .touchUpInside)
         // Create a bar button item using the info button as its custom view
         let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
-
         navigationItem.rightBarButtonItem = infoBarButtonItem
+        
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(logView(_:)))
+        setScoreboardViewByPlayersExist()
 
         if server.haveCurrentPlayer() {
             p1 = server.loadFirstPlayer()!
@@ -109,6 +111,7 @@ class ViewController: UIViewController {
 
     @IBAction func renameEvent(_ sender: UIButton) {
         server.store(p1: p1, p2: p2)
+        setScoreboardViewByPlayersExist()
         reset(clear: 0)
         byState(state: 1)
     }
@@ -151,6 +154,7 @@ class ViewController: UIViewController {
         }
         
         self.present(alert!, animated: true)
+        setScoreboardViewByPlayersExist()
         server.log()
     }
 
@@ -167,6 +171,16 @@ class ViewController: UIViewController {
             self.reset(clear: 1)
         }))
         self.present(confirm, animated: true)
+        setScoreboardViewByPlayersExist()
+    }
+    
+    
+    func setScoreboardViewByPlayersExist() {
+        if server.getPlayers().isEmply() {
+            navigationItem.leftBarButtonItem?.isEnabled = false
+        } else {
+            navigationItem.leftBarButtonItem?.isEnabled = true
+        }
     }
 
     func setColor() {
@@ -241,7 +255,7 @@ class ViewController: UIViewController {
             nameLb2.isUserInteractionEnabled = false
             scoreLb2.isHidden = false
             stepper2.isHidden = false
-
+            
             renameBtn.isHidden = false
             submitBtn.isHidden = true
             minBtn.isHidden = false
@@ -250,7 +264,7 @@ class ViewController: UIViewController {
         default:
             setColor()
         }
-        if server.getPlayers() != nil {
+        if !server.getPlayers().isEmply() {
             resetBtn.isHidden = false
         } else {
             resetBtn.isHidden = true
@@ -271,6 +285,8 @@ class ViewController: UIViewController {
         setPlayer()
         byState(state: 1)
         server.log()
+        
+        setScoreboardViewByPlayersExist()
     }
 }
 

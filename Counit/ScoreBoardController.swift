@@ -9,10 +9,12 @@
 import UIKit
 
 class ScoreBoardController: UITableViewController {
-    var objects = [Any]()
+    var server: Server = Server.getServer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var players: Players = server.getPlayers()
+        
         
         let refreshBtn = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadData(_:)))
         self.navigationItem.rightBarButtonItem = refreshBtn
