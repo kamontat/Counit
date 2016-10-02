@@ -29,9 +29,9 @@ class Player {
     init(name: String, score: Int) {
         self.name = name
         self.historyScores = [0]
-        if !isGuest() {
+        if !isGuest() && score != 0 {
             self.score = score
-            historyScores.append(score)
+            historyScores.insert(score, at: 0)
         }
     }
     
@@ -56,8 +56,8 @@ class Player {
     /// update score into history if and ony if player not guest
     func updateScore() {
         if !isGuest() {
-            if historyScores.last! != score {
-                historyScores.append(score)
+            if historyScores.first! != score {
+                historyScores.insert(score, at: 0)
             }
             clearOldScore()
         }
@@ -73,7 +73,7 @@ class Player {
     /// clear old history if this more than 60
     private func clearOldScore() {
         if historyScores.count > 60 {
-            historyScores.remove(at: 0)
+            historyScores.removeLast()
         }
     }
     
@@ -81,15 +81,9 @@ class Player {
     ///
     /// - returns: string of status of this class
     func toString() -> String {
-        var i = 0;
         var text: String = "Name: \(name), Score: \(score)\n"
-        for history in historyScores {
-            i += 1;
-            if i == historyScores.count {
-                text = text.appending("%\(history)%")
-            } else {
-                text = text.appending("*\(history)*     ")
-            }
+        for history in historyScores{
+            text = text.appending("\(history)     ")
         }
         return text
     }

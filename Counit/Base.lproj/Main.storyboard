@@ -128,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1561" y="1233"/>
+            <point key="canvasLocation" x="874" y="1305"/>
         </scene>
         <!--ScoreBoard-->
         <scene sceneID="hxF-jx-eAS">
@@ -139,12 +139,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6dY-Vx-nfG">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="fNT-wr-AKh" style="IBUITableViewCellStyleDefault" id="6dY-Vx-nfG">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6dY-Vx-nfG" id="Smt-9b-SMS">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fNT-wr-AKh">
+                                            <frame key="frameInset" minX="15" width="345" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -154,10 +163,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ScoreBoard" id="0Fu-CM-fOv"/>
+                    <connections>
+                        <outlet property="table" destination="LVD-Xk-gsh" id="gBc-zh-93z"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKU-af-Oqs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2353" y="465"/>
+            <point key="canvasLocation" x="1553" y="1305"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hqZ-uc-8eY">
@@ -169,7 +181,6 @@
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9L5-mi-tjx"/>
-                        <segue destination="hi7-Pv-ZY9" kind="show" identifier="" id="qV4-7p-rfr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jWo-k8-2Ng" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -177,7 +188,4 @@
             <point key="canvasLocation" x="874" y="454"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Mlg-fl-I1S"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -143,6 +143,15 @@ class Server {
         return Players.toPlayers(datas: data)
     }
     
+    /// store new players into storage
+    ///
+    /// please sure that old players will be **replace** by new one
+    ///
+    /// - parameter ps: `Players` to store
+    func storePlayers(ps: Players) {
+        user.set(ps.toData(), forKey: "allPlayers")
+    }
+    
     /// print all infrmation in server
     func log() {
         print("Server Log !!!!")

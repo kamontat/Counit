@@ -59,6 +59,10 @@ class ViewController: UIViewController {
     }
 
     func logView(_ sender: Any) {
+        server.store(p1: p1, p2: p2)
+        setScoreboardViewByPlayersExist()
+        server.log()
+        
         self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
     }
 
