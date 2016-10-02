@@ -126,16 +126,31 @@ class ViewController: UIViewController {
 
     @IBAction func storeData(_ sender: UIButton) {
         server.store(p1: p1, p2: p2)
+        
+        var alert: UIAlertController? = nil
+        
         if p1.isGuest() && p2.isGuest() {
-            let alert = UIAlertController(title: "Cannot Save", message: "all guest member won't save data!!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK, I know it", style: .cancel))
-            self.present(alert, animated: true)
+            alert = UIAlertController(title: "Cannot Save", message: "all player is guest \nSo won't save any data!!", preferredStyle: .alert)
+            alert!.addAction(UIAlertAction(title: "OK, I know it", style: .cancel))
         } else {
-            let alert = UIAlertController(title: "Saved", message: "first name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond name: \(nameLb2.text!) -> \(scoreLb2.text!)", preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-            self.present(alert, animated: true)
+            var title: String = ""
+            var text: String = ""
+            if p1.isGuest() {
+                title = "Saved only second player"
+                text = "first player cannot saved\nsecond player name: \(nameLb2.text!) -> \(scoreLb2.text!)"
+            } else if p2.isGuest() {
+                title = "Saved only first player"
+                text = "first player name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond player cannot saved"
+            } else {
+                title = "Saved"
+                text = "first player name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond player name: \(nameLb2.text!) -> \(scoreLb2.text!)"
+            }
+            alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
+            alert!.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
             resetBtn.isHidden = false
         }
+        
+        self.present(alert!, animated: true)
         server.log()
     }
 

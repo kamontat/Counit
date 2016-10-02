@@ -8,6 +8,10 @@
 
 import Foundation
 
+
+/// all player in the app will create by using this class
+///
+/// and this class will keep `name`, `score`, and all history score but history score can't more than 60
 class Player {
     var name: String = ""
     var score: Int = 0
@@ -40,10 +44,16 @@ class Player {
         }
     }
     
+    /// change score to current **but** not update into history
+    ///
+    /// if want to update press call updateScore method
+    ///
+    /// - parameter score: score to replace
     func changeScore(score: Int) {
         self.score = score
     }
     
+    /// update score into history if and ony if player not guest
     func updateScore() {
         if !isGuest() {
             if historyScores.last! != score {
@@ -53,16 +63,23 @@ class Player {
         }
     }
     
+    /// check if player is guest member, mean player with name call "player1" or "player2"
+    ///
+    /// - returns: true if it guest, otherwise return false
     func isGuest() -> Bool {
         return (name == "player1") || (name == "player2");
     }
     
+    /// clear old history if this more than 60
     private func clearOldScore() {
         if historyScores.count > 60 {
             historyScores.remove(at: 0)
         }
     }
     
+    /// text of this class
+    ///
+    /// - returns: string of status of this class
     func toString() -> String {
         var i = 0;
         var text: String = "Name: \(name), Score: \(score)\n"
@@ -77,6 +94,9 @@ class Player {
         return text
     }
     
+    /// change this `player` to `data`
+    ///
+    /// - returns: data
     func toData () -> [Data] {
         let encodedName = NSKeyedArchiver.archivedData(withRootObject: name)
         let encodedScore = NSKeyedArchiver.archivedData(withRootObject: score)
@@ -85,6 +105,11 @@ class Player {
         return [encodedName, encodedScore, encodedHistoey]
     }
     
+    /// change `data` to `player`
+    ///
+    /// - parameter data: any data
+    ///
+    /// - returns: player
     class func toPlayer(data: [Data]) -> Player {
         let unpackedName = NSKeyedUnarchiver.unarchiveObject(with: data[0]) as! String
         let unpackedScore = NSKeyedUnarchiver.unarchiveObject(with: data[1]) as! Int

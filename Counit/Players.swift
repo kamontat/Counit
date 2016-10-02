@@ -7,17 +7,40 @@
 //
 import Foundation
 
+
+/// all player in the app will store in this class
+/// 
+/// this have many useful method this use from manage player in the list
+///
+/// and also this class is **singleton**
 class Players{
-    var allPlayer: [Player]
+    private var allPlayer: [Player]
+    private static var players: Players?
     
-    init() {
+    /// call its if want to create this object
+    ///
+    /// make this class to **singleton**
+    ///
+    /// - returns: only one `Players`
+    class func getPlayers() -> Players {
+        if (players != nil) {
+            return players!
+        }
+        players = Players()
+        return players!
+    }
+    
+    private init() {
         allPlayer = [Player]()
     }
     
-    init(allPlayer: [Player]) {
+    private init(allPlayer: [Player]) {
         self.allPlayer = allPlayer
     }
     
+    /// add new player in allplayer
+    ///
+    /// - parameter player: player want to add
     func addPlayer(player: Player) {
         if (isHere(player: player)) {
             allPlayer.remove(at: indexOf(player: player)!)
@@ -25,15 +48,30 @@ class Players{
         allPlayer.append(player)
     }
     
+    /// get index by player
+    ///
+    /// - parameter player: player
+    ///
+    /// - returns: index of player in allplayer list, otherwise return nil
     func indexOf(player: Player) -> Int? {
         return allPlayer.index(where: {$0.name == player.name});
     }
     
+    /// get index by name of player
+    ///
+    /// - parameter name: name of player
+    ///
+    /// - returns: index of player in allplayer list, otherwise return nil
     func indexOf(name: String) -> Int? {
         
         return allPlayer.index(where: {$0.name == name});
     }
     
+    /// check `player` in exist in allplayer on this class
+    ///
+    /// - parameter player: player
+    ///
+    /// - returns:true if exist, otherwise return false
     func isHere(player: Player) -> Bool {
         if indexOf(player : player) == nil {
             return false
@@ -41,6 +79,11 @@ class Players{
         return true
     }
     
+    /// check this name in exist player in this class
+    ///
+    /// - parameter name: name of player
+    ///
+    /// - returns: true if exist, otherwise return false
     func isHere(name: String) -> Bool {
         if indexOf(name : name) == nil {
             return false
@@ -48,6 +91,11 @@ class Players{
         return true
     }
     
+    /// get all score history by `player`
+    ///
+    /// - parameter player: player
+    ///
+    /// - returns: all history score
     func searchScore(player: Player) -> [Int] {
         if !isHere(player: player) {
             return []
@@ -55,6 +103,11 @@ class Players{
         return allPlayer[indexOf(player : player)!].historyScores
     }
     
+    /// get all score history of player call `name`
+    ///
+    /// - parameter name: name of player
+    ///
+    /// - returns: all history score
     func searchScore(name: String) -> [Int] {
         if !isHere(name: name) {
             return []
@@ -62,16 +115,30 @@ class Players{
         return allPlayer[indexOf(name : name)!].historyScores
     }
     
-    func searchNewestScore(player: Player) -> Int {
-        let scores = searchScore(player: player).last
-        return (scores != nil) ? scores! : -1
+    /// get the newiest score by `player`
+    ///
+    /// - parameter player: player
+    ///
+    /// - returns: the newest score
+    func getNewestScore(player: Player) -> Int {
+        return player.score
     }
     
+    /// get the newiest score of player call `name`
+    ///
+    /// - parameter name: name of player
+    ///
+    /// - returns: the newest score
     func searchNewestScore(name: String) -> Int {
         let scores = searchScore(name: name).last
         return (scores != nil) ? scores! : -1
     }
     
+    /// get the newest player in list of allplayer
+    ///
+    /// if **not** exist wil return guest player out
+    ///
+    /// - returns: player
     func getNewestPlayer() -> Player {
         if allPlayer.last != nil {
             return allPlayer.last!
@@ -79,6 +146,11 @@ class Players{
         return Player()
     }
     
+    /// get `player` in allplayer by name
+    ///
+    /// - parameter name: name of player
+    ///
+    /// - returns: return player if it's exist, otherwise return `nil`
     func getPlayer(name: String) -> Player? {
         if indexOf(name: name) == nil {
             return nil
@@ -86,12 +158,20 @@ class Players{
         return allPlayer[indexOf(name: name)!]
     }
     
+    /// remove player in allplayer by name
+    ///
+    /// it's won't remove if name isn't exist
+    ///
+    /// - parameter name: name of player
     func removePlayer(name: String) {
         if indexOf(name: name) != nil {
             allPlayer.remove(at: indexOf(name: name)!)
         }
     }
     
+    /// text of this class
+    ///
+    /// - returns: string of status of this class
     func toString() -> String {
         var i = 0;
         var text: String = "";
@@ -102,6 +182,9 @@ class Players{
         return text
     }
     
+    /// change this `players` to `data`
+    ///
+    /// - returns: data
     func toData() -> [[Data]] {
         var data: [[Data]] = [];
         for player in allPlayer {
@@ -110,6 +193,11 @@ class Players{
         return data
     }
     
+    /// change `data` to `players`
+    ///
+    /// - parameter datas: any data
+    ///
+    /// - returns: players
     class func toPlayers(datas: [[Data]]) -> Players {
         var all: [Player] = [Player]()
         for data in datas {
