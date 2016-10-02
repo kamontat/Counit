@@ -55,6 +55,7 @@ class Server {
         }
         return Player.toPlayer(data: (user.object(forKey: "first") as! [Data]))
     }
+
     
     func loadSecondPlayer() -> Player? {
         if user.object(forKey: "second") == nil {
@@ -63,16 +64,25 @@ class Server {
         return Player.toPlayer(data: user.object(forKey: "second") as! [Data])
     }
     
+    
+    /// <#Description#>
+    ///
+    /// - returns: <#return value description#>
     func haveCurrentPlayer() -> Bool{
         return user.object(forKey: "first") != nil && user.object(forKey: "second") != nil
     }
     
+    
+    /// searching name in allplayer and remove it
+    ///
+    /// - parameter name: `name` of player that want to move
     private func remove(name: String) {
         let all = getPlayers()!;
         all.removePlayer(name: name)
         user.set(all.toData(), forKey: "allPlayers")
     }
     
+    /// clear only current player
     func clear() {
         if haveCurrentPlayer() {
             remove(name: loadFirstPlayer()!.name)
@@ -83,11 +93,18 @@ class Server {
         }
     }
     
+    
+    /// clear all data in storage
     func clearAll() {
         clear()
         user.set(Players().toData(), forKey: "allPlayers")
     }
     
+    
+    /// get data from the storage and convert it to `players`
+    ///
+    /// - returns: `players` if it possible to get, otherwise return `nil`
+    /// - seealso:
     func getPlayers() -> Players? {
         if user.object(forKey: "allPlayers") == nil {
             user.set(Players().toData(), forKey: "allPlayers")
@@ -97,6 +114,8 @@ class Server {
         return Players.toPlayers(datas: all)
     }
     
+    
+    /// print all infrmation in server
     func log() {
         print("Server Log !!!!")
         if loadFirstPlayer() != nil {
