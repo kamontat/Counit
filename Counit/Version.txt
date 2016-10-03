@@ -10,3 +10,4 @@ List all version update:
     - 1.9        : change code to object for more flexible, change the way to save storage data, welcome to scoreboard (beta), clean many of code
     - 1.9.01     : make guest more complete
     - 2.0        : add scoreboard and update realtime
+    - 2.1-beta.1 : add 3d touch of shortcut

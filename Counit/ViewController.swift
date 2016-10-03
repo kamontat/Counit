@@ -51,8 +51,7 @@ class ViewController: UIViewController {
             p2 = server.loadSecondPlayer()!
             setPlayer()
         }
-
-        server.log()
+        
         byState(state: 1)
         setColor()
     }
@@ -60,7 +59,6 @@ class ViewController: UIViewController {
     func logView(_ sender: Any) {
         server.store(p1: p1, p2: p2)
         setScoreboardViewByPlayersExist()
-        server.log()
         
         self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
     }
@@ -84,7 +82,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func submitEvent(_ sender: UIButton) {
-        server.log()
 
         if nameLb1.text == "" {
             nameLb1.text = "player1";
@@ -158,7 +155,6 @@ class ViewController: UIViewController {
         
         self.present(alert!, animated: true)
         setScoreboardViewByPlayersExist()
-        server.log()
     }
 
     @IBAction func resetData(_ sender: UIButton) {
@@ -287,7 +283,6 @@ class ViewController: UIViewController {
 
         setPlayer()
         byState(state: 1)
-        server.log()
         
         setScoreboardViewByPlayersExist()
     }

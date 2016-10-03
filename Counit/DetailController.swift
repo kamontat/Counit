@@ -10,6 +10,26 @@ import UIKit
 
 class DetailController: UITableViewController {
     private var player: Player?
+    
+    // MARK: - Preview action items.
+    lazy var previewDetailsActions: [UIPreviewActionItem] = {
+        func previewActionForTitle(_ title: String, style: UIPreviewActionStyle = .default) -> UIPreviewAction {
+            return UIPreviewAction(title: title, style: style) { previewAction, viewController in
+                let detailController = viewController as? DetailController
+                print("\(previewAction.title) triggered for item: \(detailController)")
+            }
+        }
+        
+        let actionDefault = previewActionForTitle("temp Action")
+        let actionDestructive = previewActionForTitle("Destructive Action", style: .destructive)
+        
+        let subAction1 = previewActionForTitle("sub action 1")
+        let subAction2 = previewActionForTitle("sub action 2")
+        let subAction3 = previewActionForTitle("sub action 3")
+        let groupedOptionsActions = UIPreviewActionGroup(title: "Options…", style: .default, actions: [subAction1, subAction2, subAction3] )
+        
+        return [actionDefault, actionDestructive, groupedOptionsActions]
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +37,7 @@ class DetailController: UITableViewController {
         self.clearsSelectionOnViewWillAppear = true
     }
     
-    func getPlayer(player: Player) {
+    func setPlayer(player: Player) {
         self.player = player
     }
 
@@ -27,7 +47,7 @@ class DetailController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rowss
+        // #warning Incomplete implementation, return the number of rows
         return (player?.historyScores.count)!
     }
 
@@ -42,5 +62,14 @@ class DetailController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
+    }
+}
+
+//MARK: - PreviewActions
+typealias PreviewActions = DetailController
+extension PreviewActions  {
+    /// User swipes upward on a 3D Touch preview
+    override var previewActionItems : [UIPreviewActionItem] {
+        return previewDetailsActions
     }
 }
