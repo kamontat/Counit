@@ -13,7 +13,7 @@ class DetailController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "\(player!.name) : \(player!.countHistory()))"
+        navigationItem.title = "\(player!.name)"
         self.clearsSelectionOnViewWillAppear = true
     }
     

@@ -35,6 +35,7 @@ class ScoreBoardController: UITableViewController {
             let controller = segue.destination as! DetailController
             controller.getPlayer(player: player!)
         }
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
