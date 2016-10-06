@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     private var timer: Timer = Timer()
     private var time: Int = 0
-    private let autoSavedTime: Int = 20
+    private let autoSavedTime: Int = 15
     
     static private var state: State = .START
     
