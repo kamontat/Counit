@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var resetBtn: UIButton!
     
     @IBOutlet weak var saveLb: UILabel!
+    @IBOutlet weak var timerLb: UILabel!
     
     private var version = ""
     private var server: Server = Server.getServer()
@@ -35,6 +36,10 @@ class ViewController: UIViewController {
 
     private var tempName1: String = "";
     private var tempName2: String = "";
+    
+    static var timer: Timer = Timer()
+    private var time = 0;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         version = getVersion()
@@ -120,7 +125,7 @@ class ViewController: UIViewController {
         byState(state: 2)
         
         // auto save every 20 second
-        Timer.scheduledTimer(timeInterval: 20,
+        ViewController.timer = Timer.scheduledTimer(timeInterval: 1,
                              target: self,
                              selector: #selector(self.autoSave),
                              userInfo: nil,
@@ -263,7 +268,6 @@ class ViewController: UIViewController {
         switch state {
                 // start "app" or "reset" or "rename"
         case 1:
-
             nameLb1.text = p1.name
             nameLb1.isUserInteractionEnabled = true
             scoreLb1.isHidden = true
@@ -283,7 +287,7 @@ class ViewController: UIViewController {
             minBtn.isHidden = true
 
             storeBtn.isHidden = true
-
+            timerLb.isHidden = true
                 // already click submit
         case 2:
             nameLb1.isUserInteractionEnabled = false
@@ -298,6 +302,7 @@ class ViewController: UIViewController {
             minBtn.isHidden = false
 
             storeBtn.isHidden = false
+            timerLb.isHidden = false
         default:
             setColor()
         }
@@ -310,19 +315,23 @@ class ViewController: UIViewController {
     }
     
     func autoSave() {
-        showSaveMessage()
-        server.store(p1: p1, p2: p2)
-        setScoreboardViewByPlayersExist()
-        
-        Timer.scheduledTimer(timeInterval: 1,
-                             target: self,
-                             selector: #selector(self.hideSaveMessage),
-                             userInfo: nil,
-                             repeats: false)
+        time += 1
+        timerLb.text! = "\(time)s"
+        if (time >= 20) {
+            showSaveMessage()
+            server.store(p1: p1, p2: p2)
+            setScoreboardViewByPlayersExist()
+            Timer.scheduledTimer(timeInterval: 1,
+                                 target: self,
+                                 selector: #selector(self.hideSaveMessage),
+                                 userInfo: nil,
+                                 repeats: false)
+        }
     }
     
     func showSaveMessage() {
         saveLb.isHidden = false
+        time = 0;
     }
     
     func hideSaveMessage() {
