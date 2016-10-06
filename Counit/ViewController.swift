@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     private var p1: Player = Player()
     private var p2: Player = Player()
 
+    private var tempName1: String = "";
+    private var tempName2: String = "";
     override func viewDidLoad() {
         super.viewDidLoad()
         version = getVersion()
@@ -74,15 +76,22 @@ class ViewController: UIViewController {
         p1.changeScore(score: Int(sender.value))
         setColor()
     }
+    
+    @IBAction func textfieldEvent1(_ sender: UITextField) {
+        submitBtn.isEnabled = !isSameName()
+    }
 
     @IBAction func addDelete2(_ sender: UIStepper) {
         scoreLb2.text = String(Int(sender.value));
         p2.changeScore(score: Int(sender.value))
         setColor()
     }
+    
+    @IBAction func textfieldEvent2(_ sender: UITextField) {
+        submitBtn.isEnabled = !isSameName()
+    }
 
     @IBAction func submitEvent(_ sender: UIButton) {
-
         if nameLb1.text == "" {
             nameLb1.text = "player1";
         }
@@ -90,16 +99,16 @@ class ViewController: UIViewController {
             nameLb2.text = "player2";
         }
 
-        if server.load(name: nameLb1.text!) == nil {
-            p1 = Player(name: nameLb1.text!)
+        if server.load(name: getName(which: 1)) == nil {
+            p1 = Player(name: getName(which: 1))
         } else {
-            p1 = server.load(name: nameLb1.text!)!
+            p1 = server.load(name: getName(which: 1))!
         }
 
-        if server.load(name: nameLb2.text!) == nil {
-            p2 = Player(name: nameLb2.text!)
+        if server.load(name: getName(which: 2)) == nil {
+            p2 = Player(name: getName(which: 2))
         } else {
-            p2 = server.load(name: nameLb2.text!)!
+            p2 = server.load(name: getName(which: 2))!
         }
 
         print("current p1: \(p1.toString())")
@@ -140,13 +149,13 @@ class ViewController: UIViewController {
             var text: String = ""
             if p1.isGuest() {
                 title = "Saved only second player"
-                text = "first player cannot saved\nsecond player name: \(nameLb2.text!) -> \(scoreLb2.text!)"
+                text = "first player cannot saved\nsecond player name: \(getName(which: 2)) -> \(scoreLb2.text!)"
             } else if p2.isGuest() {
                 title = "Saved only first player"
-                text = "first player name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond player cannot saved"
+                text = "first player name: \(getName(which: 1)) -> \(scoreLb1.text!)\nsecond player cannot saved"
             } else {
                 title = "Saved"
-                text = "first player name: \(nameLb1.text!) -> \(scoreLb1.text!)\nsecond player name: \(nameLb2.text!) -> \(scoreLb2.text!)"
+                text = "first player name: \(getName(which: 1)) -> \(scoreLb1.text!)\nsecond player name: \(getName(which: 2)) -> \(scoreLb2.text!)"
             }
             alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
             alert!.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
@@ -213,6 +222,25 @@ class ViewController: UIViewController {
 
     func getBuild() -> String {
         return Bundle.main.buildVersionNumber!;
+    }
+    
+    func getName(which: Int) -> String {
+        switch which {
+        case 1:
+            return nameLb1.text!.lowercased();
+        default:
+            return nameLb2.text!.lowercased();
+        }
+    }
+    
+    func isSameName() -> Bool {
+        tempName1 = getName(which: 1)
+        tempName2 = getName(which: 2)
+        if tempName1 != tempName2 || tempName1 == "" ||  tempName2 == "" {
+            return false
+        } else {
+            return true
+        }
     }
 
     /**
