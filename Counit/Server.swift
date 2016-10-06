@@ -43,6 +43,7 @@ class Server {
     /// - parameter p1: first player
     /// - parameter p2: second player
     func store(p1: Player, p2: Player) {
+        
         var all: Players = Players.getPlayers()
         if (user.object(forKey: "allPlayers") != nil) {
             all = getPlayers()
@@ -76,24 +77,24 @@ class Server {
         return all.getPlayer(name: name)
     }
     
-    /// load first player on the current player
+    /// load the player on the current player by parameter
     ///
-    /// - returns: first player if it exist, otherwise return `nil`
-    func loadFirstPlayer() -> Player? {
-        if user.object(forKey: "first") == nil {
+    /// - parameter which: which player you want to load
+    ///
+    /// - returns: player if it exist, otherwise return `nil`
+    func loadPlayer(which: PlayerNumber) -> Player? {
+        var data: Any? = nil;
+        
+        if which == .PLAYER1 {
+            data = (user.object(forKey: "first"))
+        } else if which == .PLAYER2 {
+            data = (user.object(forKey: "second"))
+        }
+        
+        if data == nil {
             return nil
         }
-        return Player.toPlayer(data: (user.object(forKey: "first") as! [Data]))
-    }
-
-    /// load second player on the current player
-    ///
-    /// - returns: second player if it exist, otherwise return `nil`
-    func loadSecondPlayer() -> Player? {
-        if user.object(forKey: "second") == nil {
-            return nil
-        }
-        return Player.toPlayer(data: user.object(forKey: "second") as! [Data])
+        return Player.toPlayer(data: data  as! [Data])
     }
     
     /// check is program have current player or not
@@ -115,8 +116,8 @@ class Server {
     /// clear only current player
     func clear() {
         if haveCurrentPlayer() {
-            remove(name: loadFirstPlayer()!.name)
-            remove(name: loadSecondPlayer()!.name)
+            remove(name: loadPlayer(which: .PLAYER1)!.name)
+            remove(name: loadPlayer(which: .PLAYER2)!.name)
             
             user.removeObject(forKey: "first")
             user.removeObject(forKey: "second")
@@ -155,16 +156,16 @@ class Server {
     /// print all infrmation in server
     func log() {
         print("Server Log !!!!")
-        if loadFirstPlayer() != nil {
+        if loadPlayer(which: .PLAYER1) != nil {
             print("FIRST PLAYER:")
-            print(loadFirstPlayer()!.toString())
+            print(loadPlayer(which: .PLAYER1)!.toString())
         } else {
             print("No First player")
         }
         
-        if loadSecondPlayer() != nil {
+        if loadPlayer(which: .PLAYER2) != nil {
             print("SECOND PLAYER:")
-            print(loadSecondPlayer()!.toString())
+            print(loadPlayer(which: .PLAYER2)!.toString())
         } else {
             print("No Second player")
         }

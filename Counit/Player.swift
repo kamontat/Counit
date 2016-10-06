@@ -67,7 +67,7 @@ class Player {
     ///
     /// - returns: true if it guest, otherwise return false
     func isGuest() -> Bool {
-        return (name == "player1") || (name == "player2");
+        return (name == "player1") || (name == "player2") || name == "";
     }
     
     

@@ -81,11 +81,9 @@ extension Navigation {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
             let player = players?.allPlayer[indexPath.row]
-            print(player)
             let controller = segue.destination as! DetailController
             controller.setPlayer(player: player!)
         } else {
-            print("done")
         }
     }
 }

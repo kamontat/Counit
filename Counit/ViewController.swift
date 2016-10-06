@@ -34,11 +34,14 @@ class ViewController: UIViewController {
     private var p1: Player = Player()
     private var p2: Player = Player()
 
-    private var tempName1: String = "";
-    private var tempName2: String = "";
+    private var tempName1: String = ""
+    private var tempName2: String = ""
     
-    static var timer: Timer = Timer()
-    private var time = 0;
+    private var timer: Timer = Timer()
+    private var time: Int = 0
+    private let autoSavedTime: Int = 20
+    
+    static private var state: State = .START
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,18 +59,19 @@ class ViewController: UIViewController {
         setScoreboardViewByPlayersExist()
 
         if server.haveCurrentPlayer() {
-            p1 = server.loadFirstPlayer()!
-            p2 = server.loadSecondPlayer()!
+            p1 = server.loadPlayer(which: .PLAYER1)!
+            p2 = server.loadPlayer(which: .PLAYER2)!
             setPlayer()
         }
         
-        byState(state: 1)
+        byState(state: .START)
         setColor()
     }
 
     func logView(_ sender: Any) {
-        server.store(p1: p1, p2: p2)
-        setScoreboardViewByPlayersExist()
+        if !p1.isGuest() && !p2.isGuest() {
+            server.store(p1: p1, p2: p2)
+        }
         
         self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
     }
@@ -106,38 +110,27 @@ class ViewController: UIViewController {
             nameLb2.text = "player2";
         }
 
-        if server.load(name: getName(which: 1)) == nil {
-            p1 = Player(name: getName(which: 1))
+        if server.load(name: getName(which: .PLAYER1)) == nil {
+            p1 = Player(name: getName(which: .PLAYER1))
         } else {
-            p1 = server.load(name: getName(which: 1))!
+            p1 = server.load(name: getName(which: .PLAYER1))!
         }
 
-        if server.load(name: getName(which: 2)) == nil {
-            p2 = Player(name: getName(which: 2))
+        if server.load(name: getName(which: .PLAYER2)) == nil {
+            p2 = Player(name: getName(which: .PLAYER2))
         } else {
-            p2 = server.load(name: getName(which: 2))!
+            p2 = server.load(name: getName(which: .PLAYER2))!
         }
-
-        print("current p1: \(p1.toString())")
-        print("current p2: \(p2.toString())")
 
         setPlayer()
-        byState(state: 2)
-        
-        // auto save every 20 second
-        ViewController.timer = Timer.scheduledTimer(timeInterval: 1,
-                             target: self,
-                             selector: #selector(self.autoSave),
-                             userInfo: nil,
-                             repeats: true)
-        
+        byState(state: .SUBMIT)
     }
 
     @IBAction func renameEvent(_ sender: UIButton) {
         server.store(p1: p1, p2: p2)
         setScoreboardViewByPlayersExist()
         reset(clear: 0)
-        byState(state: 1)
+        byState(state: .START)
     }
 
     @IBAction func calMinScore(_ sender: UIButton) {
@@ -164,13 +157,13 @@ class ViewController: UIViewController {
             var text: String = ""
             if p1.isGuest() {
                 title = "Saved only second player"
-                text = "first player cannot saved\nsecond player name: \(getName(which: 2)) -> \(scoreLb2.text!)"
+                text = "first player cannot saved\nsecond player name: \(getName(which: .PLAYER2)) -> \(scoreLb2.text!)"
             } else if p2.isGuest() {
                 title = "Saved only first player"
-                text = "first player name: \(getName(which: 1)) -> \(scoreLb1.text!)\nsecond player cannot saved"
+                text = "first player name: \(getName(which: .PLAYER1)) -> \(scoreLb1.text!)\nsecond player cannot saved"
             } else {
                 title = "Saved"
-                text = "first player name: \(getName(which: 1)) -> \(scoreLb1.text!)\nsecond player name: \(getName(which: 2)) -> \(scoreLb2.text!)"
+                text = "first player name: \(getName(which: .PLAYER1)) -> \(scoreLb1.text!)\nsecond player name: \(getName(which: .PLAYER2)) -> \(scoreLb2.text!)"
             }
             alert = UIAlertController(title: title, message: text, preferredStyle: .actionSheet)
             alert!.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
@@ -179,6 +172,9 @@ class ViewController: UIViewController {
         
         self.present(alert!, animated: true)
         setScoreboardViewByPlayersExist()
+        
+        time = 0;
+        timerLb.text! = "\(time)s"
     }
 
     @IBAction func resetData(_ sender: UIButton) {
@@ -239,18 +235,18 @@ class ViewController: UIViewController {
         return Bundle.main.buildVersionNumber!;
     }
     
-    func getName(which: Int) -> String {
+    func getName(which: PlayerNumber) -> String {
         switch which {
-        case 1:
-            return nameLb1.text!.lowercased();
-        default:
-            return nameLb2.text!.lowercased();
+        case .PLAYER1:
+            return nameLb1.text!.lowercased()
+        case .PLAYER2:
+            return nameLb2.text!.lowercased()
         }
     }
     
     func isSameName() -> Bool {
-        tempName1 = getName(which: 1)
-        tempName2 = getName(which: 2)
+        tempName1 = getName(which: .PLAYER1)
+        tempName2 = getName(which: .PLAYER2)
         if tempName1 != tempName2 || tempName1 == "" ||  tempName2 == "" {
             return false
         } else {
@@ -261,66 +257,78 @@ class ViewController: UIViewController {
     /**
         this method will change ui by state 
      
-        1 - use to **start app** or **reset** or **rename**
-        2 - use to **click submit**
+        .START - use to **start app** or **reset** or **rename**
+        .SUBMIT - use to **click submit**
      */
-    func byState(state: Int) {
-        switch state {
-                // start "app" or "reset" or "rename"
-        case 1:
-            nameLb1.text = p1.name
+    func byState(state: State) {
+        if state == .START {
+            // player 1
             nameLb1.isUserInteractionEnabled = true
+            nameLb1.text = p1.name
             scoreLb1.isHidden = true
-            nameLb2.text = p2.name
-            nameLb2.isUserInteractionEnabled = true
-            scoreLb2.isHidden = true
-
             stepper1.isHidden = true
+            // player 2
+            nameLb2.isUserInteractionEnabled = true
+            nameLb2.text = p2.name
+            scoreLb2.isHidden = true
             stepper2.isHidden = true
-
-            if nameLb1.text != "" || nameLb2.text != "" {
-                renameBtn.isHidden = false
-            } else {
-                renameBtn.isHidden = true
-            }
+            // other button
             submitBtn.isHidden = false
+            renameBtn.isHidden = !(nameLb1.text != "" || nameLb2.text != "")
             minBtn.isHidden = true
-
             storeBtn.isHidden = true
+            // timer to auto save
             timerLb.isHidden = true
-                // already click submit
-        case 2:
+            // cancel auto
+            timer.invalidate()
+            hideSaveMessage()
+        } else if state == .SUBMIT {
+            // player 1
             nameLb1.isUserInteractionEnabled = false
             scoreLb1.isHidden = false
             stepper1.isHidden = false
+            // player 2
             nameLb2.isUserInteractionEnabled = false
             scoreLb2.isHidden = false
             stepper2.isHidden = false
-            
-            renameBtn.isHidden = false
+            // other button
             submitBtn.isHidden = true
+            renameBtn.isHidden = false
             minBtn.isHidden = false
-
             storeBtn.isHidden = false
+            // timer to auto save
             timerLb.isHidden = false
-        default:
-            setColor()
+            // auto save every 20 second
+            timer = Timer.scheduledTimer(timeInterval: 1,
+                                         target: self,
+                                         selector: #selector(self.autoSave),
+                                         userInfo: nil,
+                                         repeats: true)
+        } else if state == .BACKGROUND {
+            // cancel auto
+            timer.invalidate()
+            hideSaveMessage()
         }
+        
         if !server.getPlayers().isEmply() {
             resetBtn.isHidden = false
         } else {
             resetBtn.isHidden = true
         }
+        
         setColor()
+        
+        ViewController.state = state
     }
     
     func autoSave() {
         time += 1
         timerLb.text! = "\(time)s"
-        if (time >= 20) {
+        if (time >= autoSavedTime) {
             showSaveMessage()
             server.store(p1: p1, p2: p2)
             setScoreboardViewByPlayersExist()
+            // delay show saved message
             Timer.scheduledTimer(timeInterval: 1,
                                  target: self,
                                  selector: #selector(self.hideSaveMessage),
@@ -336,6 +344,8 @@ class ViewController: UIViewController {
     
     func hideSaveMessage() {
         saveLb.isHidden = true
+        time = 0;
+        timerLb.text! = "\(time)s"
     }
 
     func reset(clear: Int) {
@@ -349,7 +359,7 @@ class ViewController: UIViewController {
         p2 = Player()
 
         setPlayer()
-        byState(state: 1)
+        byState(state: .START)
         
         setScoreboardViewByPlayersExist()
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DetailController: UITableViewController {
     private var player: Player?
@@ -15,20 +16,19 @@ class DetailController: UITableViewController {
     lazy var previewDetailsActions: [UIPreviewActionItem] = {
         func previewActionForTitle(_ title: String, style: UIPreviewActionStyle = .default) -> UIPreviewAction {
             return UIPreviewAction(title: title, style: style) { previewAction, viewController in
-                let detailController = viewController as? DetailController
-                print("\(previewAction.title) triggered for item: \(detailController)")
+                _ = viewController as? DetailController
+                if previewAction.title == "remove" {
+                    print("Remove me")
+                } else if previewAction.title == "select this player" {
+                    print("got its")
+                }
             }
         }
         
-        let actionDefault = previewActionForTitle("temp Action")
-        let actionDestructive = previewActionForTitle("Destructive Action", style: .destructive)
+        let actionDefault = previewActionForTitle("select this player")
+        let actionDestructive = previewActionForTitle("remove", style: .destructive)
         
-        let subAction1 = previewActionForTitle("sub action 1")
-        let subAction2 = previewActionForTitle("sub action 2")
-        let subAction3 = previewActionForTitle("sub action 3")
-        let groupedOptionsActions = UIPreviewActionGroup(title: "Options…", style: .default, actions: [subAction1, subAction2, subAction3] )
-        
-        return [actionDefault, actionDestructive, groupedOptionsActions]
+        return [actionDefault, actionDestructive]
     }()
 
     override func viewDidLoad() {

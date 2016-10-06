@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5307B07C1DA67D020095DF0E /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5307B07B1DA67D020095DF0E /* State.swift */; };
+		5307B07E1DA6871A0095DF0E /* PlayerNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5307B07D1DA6871A0095DF0E /* PlayerNumber.swift */; };
 		532C5E431D9D5B4E0060DB1F /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532C5E421D9D5B4E0060DB1F /* Server.swift */; };
 		535ACEBE1DA188D70073358C /* Version.txt in Resources */ = {isa = PBXBuildFile; fileRef = 535ACEBD1DA188D70073358C /* Version.txt */; };
 		535ACEC21DA18E010073358C /* DetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535ACEC11DA18E010073358C /* DetailController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5307B07B1DA67D020095DF0E /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		5307B07D1DA6871A0095DF0E /* PlayerNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNumber.swift; sourceTree = "<group>"; };
 		532C5E421D9D5B4E0060DB1F /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		535ACEBD1DA188D70073358C /* Version.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Version.txt; sourceTree = "<group>"; };
 		535ACEC11DA18E010073358C /* DetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailController.swift; sourceTree = "<group>"; };
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5307B07A1DA67CF20095DF0E /* constants */ = {
+			isa = PBXGroup;
+			children = (
+				5307B07B1DA67D020095DF0E /* State.swift */,
+				5307B07D1DA6871A0095DF0E /* PlayerNumber.swift */,
+			);
+			name = constants;
+			sourceTree = "<group>";
+		};
 		5384E3081D9EDEAD003F0948 /* object */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +92,7 @@
 		53A2992D1D9962EF00296D47 /* Counit */ = {
 			isa = PBXGroup;
 			children = (
+				5307B07A1DA67CF20095DF0E /* constants */,
 				5384E3081D9EDEAD003F0948 /* object */,
 				53A2992E1D9962EF00296D47 /* AppDelegate.swift */,
 				53A299301D9962EF00296D47 /* ViewController.swift */,
@@ -181,8 +195,10 @@
 				53A299311D9962EF00296D47 /* ViewController.swift in Sources */,
 				53A2992F1D9962EF00296D47 /* AppDelegate.swift in Sources */,
 				532C5E431D9D5B4E0060DB1F /* Server.swift in Sources */,
+				5307B07C1DA67D020095DF0E /* State.swift in Sources */,
 				5384E3071D9EDC11003F0948 /* Player.swift in Sources */,
 				53A739471D9BADE6001BA6B5 /* ScoreBoardController.swift in Sources */,
+				5307B07E1DA6871A0095DF0E /* PlayerNumber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
