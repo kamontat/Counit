@@ -24,7 +24,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var storeBtn: UIButton!
     @IBOutlet weak var resetBtn: UIButton!
-
+    
+    @IBOutlet weak var saveLb: UILabel!
+    
     private var version = ""
     private var server: Server = Server.getServer()
 
@@ -116,6 +118,14 @@ class ViewController: UIViewController {
 
         setPlayer()
         byState(state: 2)
+        
+        // auto save every 20 second
+        Timer.scheduledTimer(timeInterval: 20,
+                             target: self,
+                             selector: #selector(self.autoSave),
+                             userInfo: nil,
+                             repeats: true)
+        
     }
 
     @IBAction func renameEvent(_ sender: UIButton) {
@@ -297,6 +307,26 @@ class ViewController: UIViewController {
             resetBtn.isHidden = true
         }
         setColor()
+    }
+    
+    func autoSave() {
+        showSaveMessage()
+        server.store(p1: p1, p2: p2)
+        setScoreboardViewByPlayersExist()
+        
+        Timer.scheduledTimer(timeInterval: 1,
+                             target: self,
+                             selector: #selector(self.hideSaveMessage),
+                             userInfo: nil,
+                             repeats: false)
+    }
+    
+    func showSaveMessage() {
+        saveLb.isHidden = false
+    }
+    
+    func hideSaveMessage() {
+        saveLb.isHidden = true
     }
 
     func reset(clear: Int) {
