@@ -69,10 +69,7 @@ class ViewController: UIViewController {
     }
 
     func logView(_ sender: Any) {
-        if !p1.isGuest() && !p2.isGuest() {
-            server.store(p1: p1, p2: p2)
-        }
-        
+        server.store(p1: p1, p2: p2)
         self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
     }
 

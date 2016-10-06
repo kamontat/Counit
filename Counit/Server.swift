@@ -43,20 +43,17 @@ class Server {
     /// - parameter p1: first player
     /// - parameter p2: second player
     func store(p1: Player, p2: Player) {
-        
         var all: Players = Players.getPlayers()
         if (user.object(forKey: "allPlayers") != nil) {
             all = getPlayers()
         }
-        user.set(p1.toData(), forKey: "first")
-        user.set(p2.toData(), forKey: "second")
-        
-        if !p1.isGuest() {
+        if !p1.isGuest() && !p2.isGuest() {
+            // player 1
+            user.set(p1.toData(), forKey: "first")
             p1.updateScore()
             all.addPlayer(player: p1)
-        }
-        
-        if !p2.isGuest() {
+            // player 2
+            user.set(p2.toData(), forKey: "second")
             p2.updateScore()
             all.addPlayer(player: p2)
         }
