@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     private var time: Int = 0
     private let autoSavedTime: Int = 15
     
-    static private var state: State = .START
+    static var state: State = .START
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -301,10 +301,6 @@ class ViewController: UIViewController {
                                          selector: #selector(self.autoSave),
                                          userInfo: nil,
                                          repeats: true)
-        } else if state == .BACKGROUND {
-            // cancel auto
-            timer.invalidate()
-            hideSaveMessage()
         }
         
         if !server.getPlayers().isEmply() {
@@ -319,18 +315,25 @@ class ViewController: UIViewController {
     }
     
     func autoSave() {
-        time += 1
-        timerLb.text! = "\(time)s"
-        if (time >= autoSavedTime) {
-            showSaveMessage()
-            server.store(p1: p1, p2: p2)
-            setScoreboardViewByPlayersExist()
-            // delay show saved message
-            Timer.scheduledTimer(timeInterval: 1,
-                                 target: self,
-                                 selector: #selector(self.hideSaveMessage),
-                                 userInfo: nil,
-                                 repeats: false)
+        // when user terminate, stop count everything
+        if ViewController.state == .END {
+            timer.invalidate()
+        }
+        
+        if ViewController.state != .BACKGROUND {
+            time += 1
+            timerLb.text! = "\(time)s"
+            if (time >= autoSavedTime) {
+                showSaveMessage()
+                server.store(p1: p1, p2: p2)
+                setScoreboardViewByPlayersExist()
+                // delay show saved message
+                Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(self.hideSaveMessage),
+                                     userInfo: nil,
+                                     repeats: false)
+            }
         }
     }
     

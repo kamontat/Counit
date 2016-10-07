@@ -12,4 +12,5 @@ enum State {
     case START
     case SUBMIT
     case BACKGROUND
+    case END
 }
