@@ -302,13 +302,7 @@ class ViewController: UIViewController {
                                          userInfo: nil,
                                          repeats: true)
         }
-        
-        if !server.getPlayers().isEmply() {
-            resetBtn.isHidden = false
-        } else {
-            resetBtn.isHidden = true
-        }
-        
+        checkDataExist()
         setColor()
         
         ViewController.state = state
@@ -326,6 +320,7 @@ class ViewController: UIViewController {
             if (time >= autoSavedTime) {
                 showSaveMessage()
                 server.store(p1: p1, p2: p2)
+                checkDataExist();
                 setScoreboardViewByPlayersExist()
                 // delay show saved message
                 Timer.scheduledTimer(timeInterval: 1,
@@ -335,6 +330,10 @@ class ViewController: UIViewController {
                                      repeats: false)
             }
         }
+    }
+    
+    func checkDataExist() {
+            resetBtn.isHidden = server.getPlayers().isEmply()
     }
     
     func showSaveMessage() {
