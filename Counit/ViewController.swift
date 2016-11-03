@@ -291,7 +291,7 @@ class ViewController: UIViewController {
             // other button
             submitBtn.isHidden = true
             renameBtn.isHidden = false
-            minBtn.isHidden = false
+            minBtn.isHidden = true // disable min feature
             storeBtn.isHidden = false
             // timer to auto save
             timerLb.isHidden = false
