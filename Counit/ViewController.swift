@@ -48,9 +48,15 @@ class ViewController: UIViewController {
         version = getVersion()
 
         // Create the info button
-        let infoButton = UIButton(type: .infoLight)
+        let infoButton = UIButton(type: .custom)
+        // set icon by image
+        if let image = UIImage(named: "setting.png") {
+            infoButton.setImage(image, for: .normal)
+        }
+        // must set frame if using custom image icon
+        infoButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         // You will need to configure the target action for the button itself
-        infoButton.addTarget(self, action: #selector(aboutPopUp(_:)), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(rediection(_:)), for: .touchUpInside)
         // Create a bar button item using the info button as its custom view
         let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
         navigationItem.rightBarButtonItem = infoBarButtonItem
@@ -73,8 +79,19 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
     }
 
-    func aboutPopUp(_ sender: Any) {
-        let info = UIAlertController(title: "About Me", message: "version: " + version + "\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)", preferredStyle: .alert)
+    func rediection(_ sender: Any) {
+        let info = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        info.addAction(UIAlertAction(title: "Information", style: .default, handler: {action in self.about()}))
+        info.addAction(UIAlertAction(title: "Setting", style: .destructive))
+        info.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        self.present(info, animated: true)
+    }
+    
+    func about() {
+        let message: String = "version: \(version)\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)"
+        let info = UIAlertController(title: "About Me", message: message, preferredStyle: .alert)
         info.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         self.present(info, animated: true)
     }
