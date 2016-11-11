@@ -80,7 +80,7 @@ extension DetailController {
             
             let which = UIAlertController(title: "Save", message: "Which Player You want to Saved", preferredStyle: .alert)
             
-            if player.equals(other: first) && player.equals(other: second) {
+            if player.equals(other: first) || player.equals(other: second) {
                 which.message = "Duplicate player, it will change score only"
                 which.addAction(UIAlertAction(title: "OK", style: .destructive))
             } else {
