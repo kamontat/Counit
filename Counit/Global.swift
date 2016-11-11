@@ -11,6 +11,8 @@ import UIKit
 
 class Global {
     static var colorDiff: Int = 5
+    static var isAuto: Bool = true;
+    static var increase: Int = 1;
     
     static private let most: UIColor = UIColor.blue
     static private let more: UIColor = UIColor.green

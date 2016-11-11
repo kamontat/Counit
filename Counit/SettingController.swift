@@ -9,12 +9,34 @@
 import UIKit
 
 class SettingController: UIViewController {
+    @IBOutlet weak var valueSlider: UISlider!
     @IBOutlet weak var valueLb: UILabel!
+    @IBOutlet weak var autoSwitch: UISwitch!
+    @IBOutlet weak var increaseControl: UISegmentedControl!
+    @IBOutlet weak var historyField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        valueSlider.value = Float(Global.colorDiff)
+        valueLb.text = "\(Global.colorDiff)"
+        
+        autoSwitch.setOn(Global.isAuto, animated: false)
+        
+        switch Global.increase {
+        case 1:
+            increaseControl.selectedSegmentIndex = 0
+        case 3:
+            increaseControl.selectedSegmentIndex = 1
+        case 5:
+            increaseControl.selectedSegmentIndex = 2
+        case 10:
+            increaseControl.selectedSegmentIndex = 3
+        default:
+            increaseControl.selectedSegmentIndex = 1
+        }
+        
+        historyField.text = "\(Player.numHistory)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +60,7 @@ class SettingController: UIViewController {
     }
     
     @IBAction func setAuto(_ sender: UISwitch) {
-        ViewController.isAuto = sender.isOn
+        Global.isAuto = sender.isOn
     }
     
     @IBAction func setIncrease(_ sender: UISegmentedControl) {
@@ -46,15 +68,15 @@ class SettingController: UIViewController {
         
         switch index {
         case 0:
-            ViewController.increase = 1
+            Global.increase = 1
         case 1:
-            ViewController.increase = 3
+            Global.increase = 3
         case 2:
-            ViewController.increase = 5
+            Global.increase = 5
         case 3:
-            ViewController.increase = 10
+            Global.increase = 10
         default:
-            ViewController.increase = 1
+            Global.increase = 1
         }
     }
     
@@ -63,15 +85,15 @@ class SettingController: UIViewController {
         Player.numHistory = size
     }
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
+        // Get the new view controller using segue.destinationGlobal.
         // Pass the selected object to the new view controller.
+        let vc = segue.destination as! ViewController
+        vc.setAuto()
     }
-    */
+ 
 
 }

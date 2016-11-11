@@ -325,7 +325,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Setting" id="P6c-JI-25c"/>
                     <connections>
+                        <outlet property="autoSwitch" destination="yXW-rD-r9D" id="VjO-Eb-qXC"/>
+                        <outlet property="historyField" destination="s8O-ae-BvF" id="cZN-eP-VUn"/>
+                        <outlet property="increaseControl" destination="YEg-z8-p6i" id="HPp-cy-eYZ"/>
                         <outlet property="valueLb" destination="8WL-Xl-r9S" id="sZK-2h-sQc"/>
+                        <outlet property="valueSlider" destination="mxl-O5-apV" id="VmF-jD-yIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uI9-Nn-x0U" userLabel="First Responder" sceneMemberID="firstResponder"/>

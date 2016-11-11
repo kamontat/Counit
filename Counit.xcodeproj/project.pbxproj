@@ -231,8 +231,8 @@
 		53A2992D1D9962EF00296D47 /* Counit */ = {
 			isa = PBXGroup;
 			children = (
-				531049031DD5DD0A003C7A0A /* code */,
 				53A2992E1D9962EF00296D47 /* AppDelegate.swift */,
+				531049031DD5DD0A003C7A0A /* code */,
 				531049001DD5DA8F003C7A0A /* controller */,
 				5307B07A1DA67CF20095DF0E /* constants */,
 				5384E3081D9EDEAD003F0948 /* object */,

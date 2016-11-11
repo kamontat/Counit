@@ -45,9 +45,6 @@ class ViewController: UIViewController {
     
     static var state: State = .START
     
-    static var isAuto: Bool = true;
-    static var increase: Int = 1;
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         version = getVersion()
@@ -286,13 +283,13 @@ class ViewController: UIViewController {
             nameLb1.text = p1.name
             scoreLb1.isHidden = true
             stepper1.isHidden = true
-            stepper1.stepValue = Double(ViewController.increase)
+            stepper1.stepValue = Double(Global.increase)
             // player 2
             nameLb2.isUserInteractionEnabled = true
             nameLb2.text = p2.name
             scoreLb2.isHidden = true
             stepper2.isHidden = true
-            stepper1.stepValue = Double(ViewController.increase)
+            stepper1.stepValue = Double(Global.increase)
             // other button
             submitBtn.isHidden = false
             renameBtn.isHidden = !(nameLb1.text != "" || nameLb2.text != "")
@@ -316,19 +313,8 @@ class ViewController: UIViewController {
             submitBtn.isHidden = true
             renameBtn.isHidden = false
             minBtn.isHidden = true // disable min feature
-            if !ViewController.isAuto {
-                storeBtn.isHidden = false
-                // timer to auto save
-                timerLb.isHidden = false
-                // auto save every 20 second
-                timer = Timer.scheduledTimer(timeInterval: 1,
-                                             target: self,
-                                             selector: #selector(self.autoSave),
-                                             userInfo: nil,
-                                             repeats: true)
-            } else {
-                timer.invalidate()
-            }
+            storeBtn.isHidden = false
+            setAuto()
         default: break
         }
         
@@ -336,6 +322,21 @@ class ViewController: UIViewController {
         setColor()
         
         ViewController.state = state
+    }
+    
+    func setAuto() {
+        if Global.isAuto {
+            // timer to auto save
+            timerLb.isHidden = false
+            // auto save every 20 second
+            timer = Timer.scheduledTimer(timeInterval: 1,
+                                         target: self,
+                                         selector: #selector(self.autoSave),
+                                         userInfo: nil,
+                                         repeats: true)
+        } else {
+            timer.invalidate()
+        }
     }
     
     func autoSave() {
@@ -362,10 +363,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func checkDataExist() {
-            resetBtn.isHidden = server.getPlayers().isEmply()
-    }
-    
     func showSaveMessage() {
         saveLb.isHidden = false
         time = 0;
@@ -375,6 +372,10 @@ class ViewController: UIViewController {
         saveLb.isHidden = true
         time = 0;
         timerLb.text! = "\(time)s"
+    }
+    
+    func checkDataExist() {
+        resetBtn.isHidden = server.getPlayers().isEmply()
     }
 
     func reset(clear: Int) {
