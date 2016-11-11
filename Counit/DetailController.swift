@@ -10,7 +10,8 @@ import UIKit
 import Foundation
 
 class DetailController: UITableViewController {
-    private var player: Player?
+    var player: Player?
+    let server = Server.getServer()
     
     // MARK: - Preview action items.
     lazy var previewDetailsActions: [UIPreviewActionItem] = {
@@ -70,7 +71,6 @@ extension DetailController {
     /// Segue Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
-            let server = Server.getServer()
             
             let first = server.loadPlayer(which: .PLAYER1)
             let second = server.loadPlayer(which: .PLAYER2)
@@ -78,13 +78,40 @@ extension DetailController {
             let player = self.player!
             player.setScore(historyIndex: indexPath.row)
             
-            if !player.equals(other: first) && !player.equals(other: second) {
-                if server.haveCurrentPlayer() {
-                    server.store(p1: player, p2: server.loadPlayer(which: .PLAYER2)!)
-                } else {
-                    server.store(p1: player, p2: nil)
-                }
+            let which = UIAlertController(title: "Save", message: "Which Player You want to Saved", preferredStyle: .alert)
+            
+            if player.equals(other: first) && player.equals(other: second) {
+                which.message = "Duplicate player, it will change score only"
+                which.addAction(UIAlertAction(title: "OK", style: .destructive))
+            } else {
+                which.addAction(UIAlertAction(title: "First Player", style: .destructive, handler: {
+                    (action: UIAlertAction!) in
+                    self.saveFirst(p1: player)
+                }))
+                which.addAction(UIAlertAction(title: "Second Player", style: .destructive, handler: {
+                    (action: UIAlertAction!) in
+                    self.saveSecond(p2: player)
+                }))
             }
+            
+            which.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(which, animated: true)
+        }
+    }
+    
+    private func saveFirst(p1: Player) {
+        if server.haveCurrentPlayer() {
+            server.store(p1: p1, p2: server.loadPlayer(which: .PLAYER2)!)
+        } else {
+            server.store(p1: p1, p2: nil)
+        }
+    }
+    
+    private func saveSecond(p2: Player) {
+        if server.haveCurrentPlayer() {
+            server.store(p1: server.loadPlayer(which: .PLAYER1)!, p2: p2)
+        } else {
+            server.store(p1: nil, p2: p2)
         }
     }
 }

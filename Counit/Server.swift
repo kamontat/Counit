@@ -55,6 +55,8 @@ class Server {
                 player1.updateScore()
                 all.addPlayer(player: player1)
             }
+        } else {
+            user.removeObject(forKey: "first")
         }
         
         // player 2
@@ -64,6 +66,8 @@ class Server {
                 player2.updateScore()
                 all.addPlayer(player: player2)
             }
+        } else {
+            user.removeObject(forKey: "second")
         }
         
         user.set(all.toData(), forKey: "allPlayers")
