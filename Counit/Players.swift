@@ -106,7 +106,7 @@ class Players{
         if !isHere(player: player) {
             return []
         }
-        return allPlayer[indexOf(player : player)!].historyScores
+        return allPlayer[indexOf(player : player)!].getHistory()
     }
     
     /// get all score history of player call `name`
@@ -118,7 +118,7 @@ class Players{
         if !isHere(name: name) {
             return []
         }
-        return allPlayer[indexOf(name : name)!].historyScores
+        return allPlayer[indexOf(name : name)!].getHistory()
     }
     
     /// get the newiest score by `player`

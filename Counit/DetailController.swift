@@ -49,13 +49,13 @@ class DetailController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (player?.historyScores.count)!
+        return (player?.getHistorySize())!
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        let history = player?.historyScores[indexPath.row]
+        let history = player?.getHistory()[indexPath.row]
         cell.textLabel!.text = "\(indexPath.row))   \(history!)"
         return cell
     }

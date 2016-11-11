@@ -15,9 +15,15 @@ import Foundation
 class Player {
     var name: String = ""
     var score: Int = 0
-    var historyScores: [Int]
+    private var historyScores: [Int]
     
-    static var numHistory: Int = 60;
+    static var numHistory: Int = 60 {
+        willSet(number) {
+            self.numHistory = number
+        }
+        didSet {
+        }
+    }
     
     init() {
         self.historyScores = [0]
@@ -43,6 +49,7 @@ class Player {
         if !isGuest() {
             self.score = score
             historyScores = history
+            clearOldScore()
         }
     }
     
@@ -72,7 +79,6 @@ class Player {
         return (name == "player1") || (name == "player2") || name == "";
     }
     
-    
     /// get history number
     ///
     /// - returns: how many history in this player 
@@ -80,11 +86,30 @@ class Player {
         return historyScores.count
     }
     
+    /// get all history,
+    ///
+    /// PS. before get, this function will clear all old data
+    ///
+    /// - returns: all history in this player
+    func getHistory() -> [Int] {
+        clearOldScore()
+        return historyScores
+    }
+    
+    
+    /// change current score to index score in history
+    ///
+    /// - Parameter historyIndex: index on history array
     func setScore(historyIndex: Int) {
         let score = removeHistory(index: historyIndex)
         changeScore(score: score)
     }
     
+    
+    /// remove history by index of it
+    ///
+    /// - Parameter index: index to remove
+    /// - Returns: score that removed
     func removeHistory(index: Int) -> Int {
         if index < getHistorySize() && getHistorySize() > 1 {
             let removedScore = historyScores[index]
@@ -97,6 +122,11 @@ class Player {
         return 0
     }
     
+    
+    /// check equals to protect duplicate player in program
+    ///
+    /// - Parameter other: other player
+    /// - Returns: true if equals, otherwise return false
     func equals(other: Player?) -> Bool {
         if other == nil {
             return false
@@ -105,7 +135,7 @@ class Player {
         return other!.name == name
     }
     
-    /// clear old history if this more than 60
+    /// clear old history
     private func clearOldScore() {
         if historyScores.count > Player.numHistory {
             historyScores.removeLast()

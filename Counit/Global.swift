@@ -23,8 +23,6 @@ class Global {
     class func setColor(first: Int, second: Int) -> [UIColor] {
         let between = first - second;
         
-        print("between: \(between), colorDiff: \(colorDiff)")
-        
         if between > colorDiff*2 {
             return [most, least]
         } else if between > colorDiff {

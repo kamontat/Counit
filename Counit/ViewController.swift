@@ -75,6 +75,11 @@ class ViewController: UIViewController {
         byState(state: .START)
         setColor()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setAuto()
+        setColor()
+    }
 
     func logView(_ sender: Any) {
         server.store(p1: p1, p2: p2)
@@ -276,6 +281,8 @@ class ViewController: UIViewController {
         .SUBMIT - use to **click submit**
      */
     func byState(state: State) {
+        ViewController.state = state
+        
         switch state {
         case .START:
             // player 1
@@ -320,22 +327,26 @@ class ViewController: UIViewController {
         
         checkDataExist()
         setColor()
-        
-        ViewController.state = state
     }
     
     func setAuto() {
-        if Global.isAuto {
-            // timer to auto save
-            timerLb.isHidden = false
-            // auto save every 20 second
-            timer = Timer.scheduledTimer(timeInterval: 1,
-                                         target: self,
-                                         selector: #selector(self.autoSave),
-                                         userInfo: nil,
-                                         repeats: true)
-        } else {
+        if ViewController.state == .SUBMIT {
             timer.invalidate()
+            
+            if Global.isAuto {
+                // timer to auto save
+                timerLb.isHidden = false
+                // auto save every 20 second
+                timer = Timer.scheduledTimer(timeInterval: 1,
+                                            target: self,
+                                            selector: #selector(self.autoSave),
+                                            userInfo: nil,
+                                            repeats: true)
+            } else {
+                // timer to auto save
+                timerLb.isHidden = true
+                hideSaveMessage()
+            }
         }
     }
     

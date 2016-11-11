@@ -84,16 +84,4 @@ class SettingController: UIViewController {
         let size = Int(sender.text!) == nil ? 60 : Int(sender.text!)!
         Player.numHistory = size
     }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationGlobal.
-        // Pass the selected object to the new view controller.
-        let vc = segue.destination as! ViewController
-        vc.setAuto()
-    }
- 
-
 }
