@@ -42,20 +42,28 @@ class Server {
     ///
     /// - parameter p1: first player
     /// - parameter p2: second player
-    func store(p1: Player, p2: Player) {
+    func store(p1: Player?, p2: Player?) {
         var all: Players = Players.getPlayers()
         if (user.object(forKey: "allPlayers") != nil) {
             all = getPlayers()
         }
-        if !p1.isGuest() && !p2.isGuest() {
-            // player 1
-            user.set(p1.toData(), forKey: "first")
-            p1.updateScore()
-            all.addPlayer(player: p1)
-            // player 2
-            user.set(p2.toData(), forKey: "second")
-            p2.updateScore()
-            all.addPlayer(player: p2)
+        
+        // player 1
+        if let player1 = p1 {
+            if !player1.isGuest() {
+                user.set(player1.toData(), forKey: "first")
+                player1.updateScore()
+                all.addPlayer(player: player1)
+            }
+        }
+        
+        // player 2
+        if let player2 = p2 {
+            if !player2.isGuest() {
+                user.set(player2.toData(), forKey: "second")
+                player2.updateScore()
+                all.addPlayer(player: player2)
+            }
         }
         
         user.set(all.toData(), forKey: "allPlayers")
@@ -97,7 +105,7 @@ class Server {
     /// check is program have current player or not
     ///
     /// - returns: `true` if have current player, otherwise return `false`
-    func haveCurrentPlayer() -> Bool{
+    func haveCurrentPlayer() -> Bool {
         return user.object(forKey: "first") != nil && user.object(forKey: "second") != nil
     }
     

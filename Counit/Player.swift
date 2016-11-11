@@ -74,8 +74,33 @@ class Player {
     /// get history number
     ///
     /// - returns: how many history in this player 
-    func countHistory() -> Int {
+    func getHistorySize() -> Int {
         return historyScores.count
+    }
+    
+    func setScore(historyIndex: Int) {
+        let score = removeHistory(index: historyIndex)
+        changeScore(score: score)
+    }
+    
+    func removeHistory(index: Int) -> Int {
+        if index < getHistorySize() && getHistorySize() > 1 {
+            let removedScore = historyScores[index]
+            historyScores.remove(at: index)
+            if index == 0 {
+                changeScore(score: historyScores.first!)
+            }
+            return removedScore
+        }
+        return 0
+    }
+    
+    func equals(other: Player?) -> Bool {
+        if other == nil {
+            return false
+        }
+        
+        return other!.name == name
     }
     
     /// clear old history if this more than 60

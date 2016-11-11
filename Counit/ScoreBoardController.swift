@@ -83,7 +83,6 @@ extension Navigation {
             let player = players?.allPlayer[indexPath.row]
             let controller = segue.destination as! DetailController
             controller.setPlayer(player: player!)
-        } else {
         }
     }
 }

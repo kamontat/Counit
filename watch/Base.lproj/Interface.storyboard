@@ -14,8 +14,12 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="watch" customModuleProvider="target">
                     <items>
+                        <label width="136" alignment="left" text="Label" textAlignment="center" id="Cn2-bk-usR"/>
                         <button width="1" alignment="left" title="Hello" id="N6I-ge-iOt"/>
                     </items>
+                    <connections>
+                        <outlet property="valueLb" destination="Cn2-bk-usR" id="dDr-Vc-r7o"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>

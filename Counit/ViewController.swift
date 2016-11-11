@@ -50,11 +50,11 @@ class ViewController: UIViewController {
         // Create the info button
         let infoButton = UIButton(type: .custom)
         // set icon by image
-        if let image = UIImage(named: "setting.png") {
+        if let image = UIImage(named: "more.png") {
             infoButton.setImage(image, for: .normal)
         }
         // must set frame if using custom image icon
-        infoButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        infoButton.frame = CGRect(x: 0, y: 0, width: 10, height: 30)
         // You will need to configure the target action for the button itself
         infoButton.addTarget(self, action: #selector(rediection(_:)), for: .touchUpInside)
         // Create a bar button item using the info button as its custom view

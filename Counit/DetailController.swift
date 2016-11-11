@@ -65,6 +65,30 @@ class DetailController: UITableViewController {
     }
 }
 
+//MARK: - Navigation to next controller
+extension DetailController {
+    /// Segue Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            let server = Server.getServer()
+            
+            let first = server.loadPlayer(which: .PLAYER1)
+            let second = server.loadPlayer(which: .PLAYER2)
+            
+            let player = self.player!
+            player.setScore(historyIndex: indexPath.row)
+            
+            if !player.equals(other: first) && !player.equals(other: second) {
+                if server.haveCurrentPlayer() {
+                    server.store(p1: player, p2: server.loadPlayer(which: .PLAYER2)!)
+                } else {
+                    server.store(p1: player, p2: nil)
+                }
+            }
+        }
+    }
+}
+
 //MARK: - PreviewActions
 typealias PreviewActions = DetailController
 extension PreviewActions  {
