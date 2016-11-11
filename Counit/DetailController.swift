@@ -81,16 +81,24 @@ extension DetailController {
             let which = UIAlertController(title: "Save", message: "Which Player You want to Saved", preferredStyle: .alert)
             
             if player.equals(other: first) || player.equals(other: second) {
-                which.message = "Duplicate player, it will change score only"
-                which.addAction(UIAlertAction(title: "OK", style: .destructive))
+                which.message = "Duplicate player.\nit will change score only"
+                which.addAction(UIAlertAction(title: "OK", style: .destructive, handler: {
+                    (action: UIAlertAction!) in
+                    // open next ui
+                    self.navigationController?.pushViewController(segue.destination, animated: true)
+                }))
             } else {
                 which.addAction(UIAlertAction(title: "First Player", style: .destructive, handler: {
                     (action: UIAlertAction!) in
                     self.saveFirst(p1: player)
+                    // open next ui
+                    self.navigationController?.pushViewController(segue.destination, animated: true)
                 }))
                 which.addAction(UIAlertAction(title: "Second Player", style: .destructive, handler: {
                     (action: UIAlertAction!) in
                     self.saveSecond(p2: player)
+                    // open next ui
+                    self.navigationController?.pushViewController(segue.destination, animated: true)
                 }))
             }
             
