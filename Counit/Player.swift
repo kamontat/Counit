@@ -17,6 +17,8 @@ class Player {
     var score: Int = 0
     var historyScores: [Int]
     
+    static var numHistory: Int = 60;
+    
     init() {
         self.historyScores = [0]
     }
@@ -105,7 +107,7 @@ class Player {
     
     /// clear old history if this more than 60
     private func clearOldScore() {
-        if historyScores.count > 60 {
+        if historyScores.count > Player.numHistory {
             historyScores.removeLast()
         }
     }

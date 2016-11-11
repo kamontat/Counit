@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 class Global {
-    static var diff: Int = 5
-    static var autoSave = true
+    static var colorDiff: Int = 5
     
     static private let most: UIColor = UIColor.blue
     static private let more: UIColor = UIColor.green
@@ -22,15 +21,15 @@ class Global {
     class func setColor(first: Int, second: Int) -> [UIColor] {
         let between = first - second;
         
-        print("between: \(between), diff: \(diff)")
+        print("between: \(between), colorDiff: \(colorDiff)")
         
-        if between > diff*2 {
+        if between > colorDiff*2 {
             return [most, least]
-        } else if between > diff {
+        } else if between > colorDiff {
             return [more, less]
-        } else if between < -diff*2 {
+        } else if between < -colorDiff*2 {
             return [least, most]
-        } else if between < -diff {
+        } else if between < -colorDiff {
             return [less, more]
         } else {
             return [normal, normal]
