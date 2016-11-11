@@ -149,7 +149,8 @@
                         <outlet property="storeBtn" destination="gTz-Rc-4rt" id="jjh-XU-Ef5"/>
                         <outlet property="submitBtn" destination="s1U-tZ-EeI" id="OKU-pA-ue0"/>
                         <outlet property="timerLb" destination="DLq-GI-BNH" id="29P-I0-rJg"/>
-                        <segue destination="hi7-Pv-ZY9" kind="show" identifier="ScoreBoardView" id="4rt-x8-som"/>
+                        <segue destination="hi7-Pv-ZY9" kind="show" identifier="toScoreBoardView" id="4rt-x8-som"/>
+                        <segue destination="iPa-JF-py8" kind="show" identifier="toSettingView" id="vYN-Lv-Dhz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -182,7 +183,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="EdL-4o-afV" kind="show" identifier="DetailView" id="Bhf-5u-rhr">
+                                    <segue destination="EdL-4o-afV" kind="show" identifier="toDetailView" id="Bhf-5u-rhr">
                                         <segue key="commit" inheritsFrom="parent" id="qAf-h0-yXv"/>
                                         <segue key="preview" inheritsFrom="commit" id="c30-Ng-0SG"/>
                                     </segue>
@@ -235,6 +236,25 @@
             </objects>
             <point key="canvasLocation" x="2706" y="1220"/>
         </scene>
+        <!--Setting-->
+        <scene sceneID="ERw-cl-myS">
+            <objects>
+                <viewController storyboardIdentifier="SettingPage" id="iPa-JF-py8" customClass="SettingController" customModule="Counit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nEo-wV-uTs"/>
+                        <viewControllerLayoutGuide type="bottom" id="774-tR-Rqb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="un5-8K-00Y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Setting" id="P6c-JI-25c"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uI9-Nn-x0U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4443" y="471"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hqZ-uc-8eY">
             <objects>
@@ -253,7 +273,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9b7-qy-SmI"/>
         <segue reference="Bhf-5u-rhr"/>
+        <segue reference="9L5-mi-tjx"/>
     </inferredMetricsTieBreakers>
 </document>

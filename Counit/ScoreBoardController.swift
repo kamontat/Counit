@@ -10,7 +10,7 @@ import UIKit
 
 /// FIX ME: bug 3d touch return nil when click first time, on sometime only
 class ScoreBoardController: UITableViewController {
-    let segueID: String = "DetailView"
+    let segueID: String = "toDetailView"
     let cellID: String = "Cell"
     let detailPreviewID: String = "DetailPreview"
     var server: Server = Server.getServer()

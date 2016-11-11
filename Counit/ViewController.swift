@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let segueID: String = "toScoreBoardView"
+    
     @IBOutlet weak var nameLb1: UITextField!
     @IBOutlet weak var scoreLb1: UILabel!
     @IBOutlet weak var stepper1: UIStepper!
@@ -76,24 +78,31 @@ class ViewController: UIViewController {
 
     func logView(_ sender: Any) {
         server.store(p1: p1, p2: p2)
-        self.performSegue(withIdentifier: "ScoreBoardView", sender: self)
+        self.performSegue(withIdentifier: segueID, sender: self)
     }
 
     func rediection(_ sender: Any) {
         let info = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         info.addAction(UIAlertAction(title: "Information", style: .default, handler: {action in self.about()}))
-        info.addAction(UIAlertAction(title: "Setting", style: .destructive))
+        info.addAction(UIAlertAction(title: "Setting", style: .destructive, handler: {
+            action in
+            self.toSetting()
+        }))
         info.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         self.present(info, animated: true)
     }
     
-    func about() {
+    private func about() {
         let message: String = "version: \(version)\nWhy?\nI want to record score when I play some game with my friend\nso I made it app up\npresent By Kamontat (NtBt)"
         let info = UIAlertController(title: "About Me", message: message, preferredStyle: .alert)
         info.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
         self.present(info, animated: true)
+    }
+    
+    private func toSetting() {
+        self.navigationController!.pushViewController(self.storyboard!.instantiateViewController(withIdentifier: "SettingPage") as! SettingController, animated: true)
     }
 
     @IBAction func addDelete1(_ sender: UIStepper) {
