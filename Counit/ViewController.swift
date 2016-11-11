@@ -226,17 +226,9 @@ class ViewController: UIViewController {
     }
 
     func setColor() {
-        let diff = Int(scoreLb1.text!)! - Int(scoreLb2.text!)!
-        if diff >= 5 {
-            scoreLb1.textColor = UIColor.green
-            scoreLb2.textColor = UIColor.red
-        } else if diff <= -5 {
-            scoreLb1.textColor = UIColor.red
-            scoreLb2.textColor = UIColor.green
-        } else {
-            scoreLb1.textColor = UIColor.black
-            scoreLb2.textColor = UIColor.black
-        }
+        let color = Global.setColor(first: Int(scoreLb1.text!)!, second: Int(scoreLb2.text!)!)
+        scoreLb1.textColor = color.first
+        scoreLb2.textColor = color.last
     }
 
     // player
@@ -284,7 +276,8 @@ class ViewController: UIViewController {
         .SUBMIT - use to **click submit**
      */
     func byState(state: State) {
-        if state == .START {
+        switch state {
+        case .START:
             // player 1
             nameLb1.isUserInteractionEnabled = true
             nameLb1.text = p1.name
@@ -305,7 +298,7 @@ class ViewController: UIViewController {
             // cancel auto
             timer.invalidate()
             hideSaveMessage()
-        } else if state == .SUBMIT {
+        case .SUBMIT:
             // player 1
             nameLb1.isUserInteractionEnabled = false
             scoreLb1.isHidden = false
@@ -327,7 +320,9 @@ class ViewController: UIViewController {
                                          selector: #selector(self.autoSave),
                                          userInfo: nil,
                                          repeats: true)
+        default: break
         }
+        
         checkDataExist()
         setColor()
         
