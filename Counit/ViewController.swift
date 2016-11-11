@@ -77,8 +77,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setAuto()
-        setColor()
+        byState(state: ViewController.state)
     }
 
     func logView(_ sender: Any) {
@@ -296,7 +295,7 @@ class ViewController: UIViewController {
             nameLb2.text = p2.name
             scoreLb2.isHidden = true
             stepper2.isHidden = true
-            stepper1.stepValue = Double(Global.increase)
+            stepper2.stepValue = Double(Global.increase)
             // other button
             submitBtn.isHidden = false
             renameBtn.isHidden = !(nameLb1.text != "" || nameLb2.text != "")
@@ -312,10 +311,12 @@ class ViewController: UIViewController {
             nameLb1.isUserInteractionEnabled = false
             scoreLb1.isHidden = false
             stepper1.isHidden = false
+            stepper1.stepValue = Double(Global.increase)
             // player 2
             nameLb2.isUserInteractionEnabled = false
             scoreLb2.isHidden = false
             stepper2.isHidden = false
+            stepper2.stepValue = Double(Global.increase)
             // other button
             submitBtn.isHidden = true
             renameBtn.isHidden = false
