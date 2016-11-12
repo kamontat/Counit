@@ -13,3 +13,4 @@ List all version update:
     - 2.1        : add 3d touch of shortcut
     - 2.2        : fixed name bug and disable sleep not work correct, add new feature call auto save (it's will auto store your data in every 20 second)
     - 2.2.1      : fixed a lot of bug (change auto save to 15 second)
+    - 2.3.0      : add setting page to config more in app, add select player in detail page

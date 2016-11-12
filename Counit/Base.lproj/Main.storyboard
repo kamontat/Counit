@@ -204,10 +204,10 @@
             </objects>
             <point key="canvasLocation" x="1822" y="1220"/>
         </scene>
-        <!--Detail Controller-->
+        <!--Detail-->
         <scene sceneID="1wq-WL-jfx">
             <objects>
-                <tableViewController storyboardIdentifier="DetailPreview" id="EdL-4o-afV" customClass="DetailController" customModule="Counit" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DetailPreview" title="Detail" id="EdL-4o-afV" customClass="DetailController" customModule="Counit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kv3-5A-I7J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -354,7 +354,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="9b7-qy-SmI"/>
         <segue reference="Bhf-5u-rhr"/>
-        <segue reference="9L5-mi-tjx"/>
     </inferredMetricsTieBreakers>
 </document>

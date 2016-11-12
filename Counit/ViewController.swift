@@ -47,7 +47,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        version = getVersion()
+        // set update every time app updated
+        version = Global.getStringVersion(verLabel: Global.Version.FINAL)
 
         // Create the info button
         let infoButton = UIButton(type: .custom)
@@ -245,14 +246,6 @@ class ViewController: UIViewController {
         scoreLb2.text = String(p2.score)
         stepper2.value = Double(p2.score)
     }
-
-    func getVersion() -> String {
-        return Bundle.main.releaseVersionNumber!;
-    }
-
-    func getBuild() -> String {
-        return Bundle.main.buildVersionNumber!;
-    }
     
     func getName(which: PlayerNumber) -> String {
         switch which {
@@ -404,15 +397,5 @@ class ViewController: UIViewController {
         byState(state: .START)
         
         setScoreboardViewByPlayersExist()
-    }
-}
-
-
-extension Bundle {
-    var releaseVersionNumber: String? {
-        return infoDictionary?["CFBundleShortVersionString"] as? String
-    }
-    var buildVersionNumber: String? {
-        return infoDictionary?["CFBundleVersion"] as? String
     }
 }

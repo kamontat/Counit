@@ -20,6 +20,13 @@ class Global {
     static private let less: UIColor = UIColor.yellow
     static private let least: UIColor = UIColor.red
     
+    enum Version: String {
+        case ALPHA = "A"
+        case BETA = "B"
+        case RELEASE_CANDIDATE = "RC"
+        case FINAL = "F"
+    }
+    
     class func setColor(first: Int, second: Int) -> [UIColor] {
         let between = first - second;
         
@@ -34,5 +41,26 @@ class Global {
         } else {
             return [normal, normal]
         }
+    }
+    
+    class func getVersion() -> String {
+        return Bundle.main.releaseVersionNumber!;
+    }
+    
+    class func getBuild() -> String {
+        return Bundle.main.buildVersionNumber!;
+    }
+    
+    class func getStringVersion(verLabel: Version) -> String {
+        return "\(getVersion())-\(verLabel.rawValue)\(getBuild())"
+    }
+}
+
+extension Bundle {
+    var releaseVersionNumber: String? {
+        return infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    var buildVersionNumber: String? {
+        return infoDictionary?["CFBundleVersion"] as? String
     }
 }
