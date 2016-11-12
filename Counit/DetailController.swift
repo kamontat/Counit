@@ -83,22 +83,27 @@ extension DetailController {
             if player.equals(other: first) || player.equals(other: second) {
                 which.message = "Duplicate player.\nit will change score only"
                 which.addAction(UIAlertAction(title: "OK", style: .destructive, handler: {
-                    (action: UIAlertAction!) in
-                    // open next ui
-                    self.navigationController?.pushViewController(segue.destination, animated: true)
+                    action in
+                    if player.equals(other: first) {
+                        self.saveFirst(p1: player)
+                    } else {
+                        self.saveSecond(p2: player)
+                    }
+                    
+                    self.openPage(next: segue.destination)
                 }))
             } else {
                 which.addAction(UIAlertAction(title: "First Player", style: .destructive, handler: {
-                    (action: UIAlertAction!) in
+                    action in
                     self.saveFirst(p1: player)
-                    // open next ui
-                    self.navigationController?.pushViewController(segue.destination, animated: true)
+                    self.openPage(next: segue.destination)
                 }))
                 which.addAction(UIAlertAction(title: "Second Player", style: .destructive, handler: {
-                    (action: UIAlertAction!) in
+                    action in
                     self.saveSecond(p2: player)
                     // open next ui
-                    self.navigationController?.pushViewController(segue.destination, animated: true)
+                    self.openPage(next: segue.destination)
+                    
                 }))
             }
             
@@ -121,6 +126,10 @@ extension DetailController {
         } else {
             server.store(p1: nil, p2: p2)
         }
+    }
+    
+    private func openPage(next: UIViewController) {
+        self.navigationController?.pushViewController(next, animated: true)
     }
 }
 
